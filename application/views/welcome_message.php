@@ -1,88 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Welcome to CodeIgniter</title>
-
-	<style type="text/css">
-
-	::selection{ background-color: #E13300; color: white; }
-	::moz-selection{ background-color: #E13300; color: white; }
-	::webkit-selection{ background-color: #E13300; color: white; }
-
-	body {
-		background-color: #fff;
-		margin: 40px;
-		font: 13px/20px normal Helvetica, Arial, sans-serif;
-		color: #4F5155;
-	}
-
-	a {
-		color: #003399;
-		background-color: transparent;
-		font-weight: normal;
-	}
-
-	h1 {
-		color: #444;
-		background-color: transparent;
-		border-bottom: 1px solid #D0D0D0;
-		font-size: 19px;
-		font-weight: normal;
-		margin: 0 0 14px 0;
-		padding: 14px 15px 10px 15px;
-	}
-
-	code {
-		font-family: Consolas, Monaco, Courier New, Courier, monospace;
-		font-size: 12px;
-		background-color: #f9f9f9;
-		border: 1px solid #D0D0D0;
-		color: #002166;
-		display: block;
-		margin: 14px 0 14px 0;
-		padding: 12px 10px 12px 10px;
-	}
-
-	#body{
-		margin: 0 15px 0 15px;
-	}
-	
-	p.footer{
-		text-align: right;
-		font-size: 11px;
-		border-top: 1px solid #D0D0D0;
-		line-height: 32px;
-		padding: 0 10px 0 10px;
-		margin: 20px 0 0 0;
-	}
-	
-	#container{
-		margin: 10px;
-		border: 1px solid #D0D0D0;
-		-webkit-box-shadow: 0 0 8px #D0D0D0;
-	}
-	</style>
-</head>
-<body>
-
-<div id="container">
-	<h1>Welcome to CodeIgniter!</h1>
-
-	<div id="body">
-		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
-
-		<p>If you would like to edit this page you'll find it located at:</p>
-		<code>application/views/welcome_message.php</code>
-
-		<p>The corresponding controller for this page is found at:</p>
-		<code>application/controllers/welcome.php</code>
-
-		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
-	</div>
-
-	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>
-</div>
-
-</body>
-</html>
+<?php
+	$this->load->view('admin/header');
+	//$this->load->view('admin/leftbar');
+?>
+    <div class="grid_12">
+            <div class="box round first fullpage">
+                <h2>Search</h2>
+                <div class="block ">
+                    <p>City: 
+						<select name="city" id="city">
+							<option>New York</option>
+							<option>Greenville</option>
+							<option>Franklin</option>
+							<option>Madison</option>
+							<option>Washington</option>
+						</select>
+						 Zip: 
+						<select name="zip" id="zip">
+							<option>07069</option>
+							<option>07069</option>
+							<option>07069</option>
+							<option>07069</option>
+							<option>07069</option>
+						</select>
+						 Industry: 
+						<select name="industry" id="industry">
+							<option>SPA</option>
+							<option>Hotel</option>
+						</select>
+						Keyword: 
+						<input name="keyword" id="keyword" type="text" />
+						<input type="submit" name="submit" id="submit" value="Get Results" />
+					</p>
+					<br>
+					
+					<h3>Results</h3>
+					<div id="search_result"></div>
+					
+                </div>
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+<script>
+      function hndlr(response) {
+      for (var i = 0; i < response.items.length; i++) {
+        var item = response.items[i];
+		console.log(item);
+		var html = "";
+		html += "<p>";
+        html += '<h5 style="padding-left:10px;">';
+		html += '<a href="'+item.formattedUrl+'">'+item.htmlTitle+'</a>';
+		html += '</h5>';
+		html += '<div style="padding-left:10px;">';
+		html += '<cite>'+item.htmlFormattedUrl+'</cite>';
+		html += '</div>';
+		html += '<div style="padding-left:10px;">';
+		html += '<span class="st">'+item.htmlSnippet+'</span>';
+		html += '</div>';
+		html += '</p>';
+		// in production code, item.htmlTitle should have the HTML entities escaped.
+        document.getElementById("search_result").innerHTML += html;
+      }
+    }
+    </script>
+    <script src="https://www.googleapis.com/customsearch/v1?key=AIzaSyA4iMwtbw8lVVClDBge1hKLqSC8j_sI-rU&cx=008099485685892913783:gukgeeg2dvq&q=cars&callback=hndlr">
+    </script>    
+<?php
+	$this->load->view('admin/footer');
+?>
