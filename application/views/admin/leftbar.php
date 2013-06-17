@@ -4,8 +4,8 @@
                     <ul class="section menu">
                         <li><a class="menuitem">Setup</a>
                             <ul class="submenu">
-                                <li><a>Industry</a> </li>
-                                <li><a>City</a> </li>
+                                <li><a href="<?php echo base_url();?>admin/dashboard/industry">Industry</a> </li>
+                                <li><a href="<?php echo base_url();?>admin/dashboard/city_zip">City & Zip Code</a> </li>
                               
                             </ul>
                         </li>

@@ -34,7 +34,8 @@ class Dashboard extends CI_Controller {
 	 
 	public function index()
 	{
-		$this->load->view('admin/dashboard');
+		//$this->load->view('admin/dashboard');
+		$this->users();
 	}
 	
 	public function users()
@@ -48,6 +49,36 @@ class Dashboard extends CI_Controller {
 		$this->grocery_crud->unset_add();				
         $data['output'] = $this->grocery_crud->render();
 		$data['title'] = "All Users";
+		$this->load->view('admin/users',$data);
+	}
+	
+	function industry()
+	{
+		$data = array();
+		$this->load->library('grocery_CRUD');
+		$this->grocery_crud->unset_jquery();
+		$this->grocery_crud->set_table('industries');
+						/*->columns('username','email')
+						->display_as('username','User Name')
+						->display_as('email','Email Addresss');*/
+		//$this->grocery_crud->unset_add();				
+        $data['output'] = $this->grocery_crud->render();
+		$data['title'] = "Industries";
+		$this->load->view('admin/users',$data);
+	}
+	
+	function city_zip()
+	{
+		$data = array();
+		$this->load->library('grocery_CRUD');
+		$this->grocery_crud->unset_jquery();
+		$this->grocery_crud->set_table('cities_zip');
+						/*->columns('username','email')
+						->display_as('username','User Name')
+						->display_as('email','Email Addresss');*/
+		//$this->grocery_crud->unset_add();				
+        $data['output'] = $this->grocery_crud->render();
+		$data['title'] = "City & Zip Code";
 		$this->load->view('admin/users',$data);
 	}
 	

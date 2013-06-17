@@ -52,12 +52,12 @@
         });
     </script>
 <?php 
-/*foreach($css_files as $file): ?>
+foreach($output->css_files as $file): ?>
 <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
 <?php endforeach; ?>
-<?php foreach($js_files as $file): ?>
+<?php foreach($output->js_files as $file): ?>
 <script src="<?php echo $file; ?>"></script>
-<?php endforeach;*/ ?>
+<?php endforeach; ?>
 
 </head>
 <body>
