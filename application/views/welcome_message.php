@@ -1,5 +1,5 @@
 <?php
-	$this->load->view('admin/header');
+	$this->load->view('header');
 	//$this->load->view('admin/leftbar');
 ?>
     <div class="grid_12">
@@ -29,7 +29,7 @@
 						</select>
 						Keyword: 
 						<input name="keyword" id="keyword" type="text" />
-						<input type="submit" name="submit" id="submit" value="Get Results" />
+						<input type="button" onclick="get_results();" name="submit" id="submit" value="Get Results" />
 					</p>
 					<br>
 					
@@ -45,7 +45,20 @@
     <div class="clear">
     </div>
 <script>
-      function hndlr(response) {
+      function get_results()
+	  {
+		var keyword = $('#keyword').val();
+		$.ajax({
+		  url: "https://www.googleapis.com/customsearch/v1?key=AIzaSyA4iMwtbw8lVVClDBge1hKLqSC8j_sI-rU&cx=008099485685892913783:gukgeeg2dvq&q="+keyword+"&gl=us&googlehost=google.com",
+		  context: document.body
+		}).done(function(result) {
+		  console.log(result);
+		  hndlr(result);
+		  //$(this).addClass("done");
+		});
+	  }
+	  
+	  function hndlr(response) {
       for (var i = 0; i < response.items.length; i++) {
         var item = response.items[i];
 		console.log(item);
@@ -66,8 +79,8 @@
       }
     }
     </script>
-    <script src="https://www.googleapis.com/customsearch/v1?key=AIzaSyA4iMwtbw8lVVClDBge1hKLqSC8j_sI-rU&cx=008099485685892913783:gukgeeg2dvq&q=cars&callback=hndlr">
-    </script>    
+    <!--<script src="https://www.googleapis.com/customsearch/v1?key=AIzaSyA4iMwtbw8lVVClDBge1hKLqSC8j_sI-rU&cx=008099485685892913783:gukgeeg2dvq&q=cars&callback=hndlr">
+    </script>-->    
 <?php
 	$this->load->view('admin/footer');
 ?>
