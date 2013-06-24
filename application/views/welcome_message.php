@@ -9,23 +9,29 @@
                     <p>City: 
 						<select name="city" id="city">
 							<option>New York</option>
-							<option>Greenville</option>
-							<option>Franklin</option>
-							<option>Madison</option>
-							<option>Washington</option>
 						</select>
 						 Zip: 
 						<select name="zip" id="zip">
-							<option>07069</option>
-							<option>07069</option>
-							<option>07069</option>
-							<option>07069</option>
-							<option>07069</option>
+							<option>10001</option>
+							<option>10002</option>
+							<option>10003</option>
+							<option>10004</option>
+							<option>10005</option>
 						</select>
 						 Industry: 
 						<select name="industry" id="industry">
-							<option>SPA</option>
-							<option>Hotel</option>
+							<option>Resturants</option>
+							<option>Hospitality</option>
+							<option>General Contractors</option>
+							<option>Handy Men</option>
+							<option>Photography</option>
+							<option>Artists</option>
+							<option>Musicians</option>
+							<option>Towing</option>
+							<option>Flat beds</option>
+							<option>Body shops</option>
+							<option>Talent Agencies</option>
+							<option>Security</option>
 						</select>
 						Keyword: 
 						<input name="keyword" id="keyword" type="text" />
@@ -47,21 +53,27 @@
 <script>
       function get_results()
 	  {
+	    var city = $('#city option:selected').text();
+		var zip = $('#zip option:selected').text();
+		var industry = $('#industry option:selected').text();
 		var keyword = $('#keyword').val();
+		var search = city+" "+zip+" "+industry+" "+keyword;
+		
 		$.ajax({
-		  url: "https://www.googleapis.com/customsearch/v1?key=AIzaSyA4iMwtbw8lVVClDBge1hKLqSC8j_sI-rU&cx=008099485685892913783:gukgeeg2dvq&q="+keyword+"&gl=us&googlehost=google.com",
+		  url: "https://www.googleapis.com/customsearch/v1?key=AIzaSyA4iMwtbw8lVVClDBge1hKLqSC8j_sI-rU&cx=008099485685892913783:gukgeeg2dvq&q="+search+"&gl=usarhan&googlehost=google.com",
 		  context: document.body
 		}).done(function(result) {
-		  console.log(result);
+		  
 		  hndlr(result);
-		  //$(this).addClass("done");
+		
 		});
 	  }
 	  
 	  function hndlr(response) {
+	  document.getElementById("search_result").innerHTML = '';
       for (var i = 0; i < response.items.length; i++) {
         var item = response.items[i];
-		console.log(item);
+		
 		var html = "";
 		html += "<p>";
         html += '<h5 style="padding-left:10px;">';
