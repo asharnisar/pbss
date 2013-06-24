@@ -39,7 +39,7 @@ body{margin:0; padding:0; font-family: 'SegoeUIRegular'; font-size:13px; font-fa
 .welcome{float:left; padding:10px 10px 10px 0; font-family: 'SegoeUIRegular';}
 .top-nav{float:left; padding:10px 0; font-family: 'SegoeUIRegular';}
 .fb-login{float:left; padding:11px 0 0 5px;}
-.social{float:right; padding:8px 5px 0 0;}
+.social{float:left; padding:8px 5px 0 0; font-size:22px;}
 .logo-bar{float:left; width:100%; border-bottom:#bababa 1px solid; border-top:#bababa 1px solid;}
 .logo{float:left; margin:10px 0;}
 .ad-txt{float:right; color:#414141; font-size:20px; margin:30px 10px 0 0; font-family:'SegoeUISemibold';}
@@ -181,11 +181,11 @@ body{margin:0; padding:0; font-family: 'SegoeUIRegular'; font-size:13px; font-fa
 
 /*Detail Page*/
 .detail-colum{float:left; width:760px; margin:0 10px 0 0;}
-.job-detail{float:left; width:728px; border:#E6E6E6 1px solid; border-radius:5px 0 0 0; padding:25px 15px 15px; position:relative; margin-bottom: 10px;}
+.job-detail{float:left; width:950px; border:#E6E6E6 1px solid; border-radius:5px 0 0 0; padding:25px 15px 15px; position:relative; margin-bottom: 10px;}
 .box-fold{ position:absolute; right:-1px; top:-1px; background:url(../img/fold.jpg) no-repeat; width:15px; height:14px;}
 .job-detail .btns{float:right;}
-.job-detail h1{float:left; width:510px; font-family: 'SegoeUISemibold'; font-size:26px; font-weight:normal; padding:0; margin:0; color:#414141; line-height:25px;}
-.job-detail .detail{float:left; width:706px; background:#f9f9f9; border:#E6E6E6 1px solid; padding:10px; margin:10px 0;}
+.job-detail h1{/*float:left;*/ width:710px; font-family: 'SegoeUISemibold'; font-size:26px; font-weight:normal; padding:0; margin-bottom:10px; color:#414141; line-height:25px;}
+.job-detail .detail{float:left; width:950px; background:#f9f9f9; border:#E6E6E6 1px solid; padding:10px; margin:10px 0;}
 .job-detail .detail h1{float:left; margin:0; padding:0; font-weight:normal; font-size:20px; font-family: 'SegoeUISemibold'; padding:0 0 10px 0;}
 .job-detail .detail h2{float:left; margin:0; padding:0; font-weight:normal; font-size:24px; color:#007fda;}
 .job-detail .info{ float:left; width:706px;}
@@ -220,7 +220,7 @@ body{margin:0; padding:0; font-family: 'SegoeUIRegular'; font-size:13px; font-fa
 	border:#e6e6e6 1px solid; float:left;
 	margin-bottom: 10px;
 	position: relative;
-	width: 728px;
+	width: 950px;
 	padding:15px;
 }
 .about-profile-people h1 {
@@ -315,7 +315,7 @@ float:left; list-style-type:none; margin:0; padding:0;
 	overflow: hidden;
 	padding: 10px 10px;
 	position: relative;
-	width: 708px;
+	width: 930px;
 }
 
 .review-inner .blue{position:absolute; bottom:0px; right:0px; background:#007fda; color:#fff; font-size:15px; border-left:#006fe3 1px solid; border-top:#006fe3 1px solid; border-radius: 5px 0 0 0; padding:5px 10px 5px;}
@@ -324,7 +324,7 @@ float:left; list-style-type:none; margin:0; padding:0;
 }
 .review-inner h2 {
 	color: rgb(0, 127, 218);
-	font: 20px 'SegoeUISemibold', Arial; float:left; margin:0;
+	font: 20px 'SegoeUISemibold', Arial; /*float:left;*/ margin:0;
 }
 .review-inner p {
 	width: 602px; float:left;
@@ -683,3 +683,17 @@ span.customSelect.changed {
 .bid-actions ul li{float:left; padding:8px;}
 .bid-actions ul li a{text-decoration:none; color:#fff;}
 .bid-actions ul li a:hover{text-decoration:underline;}
+
+.top-profile-box{float:right; margin:4px 0 0 0; position:relative;}
+.top-profile-box .thumb{float:left; width:28px; height:28px; border:#686868 1px solid;}
+.top-profile-box h1{float:left; margin:0; padding:5px; font-weight:normal; color:#d9d9d9; font-size:18px;}
+.top-set-icon{float:left; margin:6px 0 0 0; cursor:pointer;}
+.top-set-menu{position:absolute; top:40px; right:-15px; border:#bfbfbf 1px solid; width:175px; background:#fff; box-shadow:#666 0px 0px 5px; }
+.top-set-menu ul{float:left; margin:0; padding:0; list-style-type:none; width:175px;}
+.top-set-menu ul li{float:left; color:#858585; font-family: 'SegoeUISemibold'; font-size:14px;}
+.top-set-menu ul li a{text-decoration:none; color:#414141; padding:5px 10px 5px 15px; width:150px; float:left;}
+.top-set-menu ul li a:hover{color:#fff; background:#007fda; text-decoration:none;}
+.top-set-menu ul li a.selected{color:#fff; background:#007fda url(../img/acpt-wht-icon.png) no-repeat 150px; text-decoration:none;}
+.top-set-menu ul li.btm-brd{ border-bottom:#dfdfdf 1px solid;}
+.top-set-menu ul li.hd{padding:5px 10px 5px 15px;}
+.tooltip-arrow{background: url(../img/tooltip-arrow.png) no-repeat; width:17px; height:11px; position:absolute; top:-11px; right:17px;}
