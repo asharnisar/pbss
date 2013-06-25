@@ -25,70 +25,65 @@
 <!-- detail Colum -->
 <div class="job-detail">
 <div class="box-fold"></div>
+<div class="signup-form">
 <h1>Search</h1>
-<div class="block ">
-                    <p>City: 
-						<select name="city" id="city">
-							<option>New York</option>
-						</select>
-						 Zip: 
-						<select name="zip" id="zip">
-							<option>10001</option>
-							<option>10002</option>
-							<option>10003</option>
-							<option>10004</option>
-							<option>10005</option>
-						</select>
-						 Industry: 
-						<select name="industry" id="industry">
-							<option>Resturants</option>
-							<option>Hospitality</option>
-							<option>General Contractors</option>
-							<option>Handy Men</option>
-							<option>Photography</option>
-							<option>Artists</option>
-							<option>Musicians</option>
-							<option>Towing</option>
-							<option>Flat beds</option>
-							<option>Body shops</option>
-							<option>Talent Agencies</option>
-							<option>Security</option>
-						</select>
-						Keyword: 
-						<input name="keyword" id="keyword" type="text" />
-						<input type="button" onclick="get_results();" name="submit" id="submit" value="Get Results" />
-					</p>
-										
-                </div>
+<ul>
+<li>
+	<table width="100%">
+		<tr>
+			<td width="33%">City</td>
+			<td width="33%">Zip</td>
+			<td width="33%">Market Segment</td>
+		</tr>
+		<tr>
+			<td>
+				<textarea name="city" id="city" class="input qtr" rows="1"></textarea>
+			</td>
+			<td>
+				<textarea name="zip" id="zip" class="input qtr" rows="1"></textarea>
+			</td>
+			<td>
+				<textarea name="industry" id="industry" class="input qtr" rows="1"></textarea>
+			</td>
+		</tr>
+	</table>
+</li>
+<li>Keyword</li>
+<li><input name="keyword" id="keyword" type="text" class="input full" /></li>
+
+<li>&nbsp;</li>
+<li>
+	<input name="button" onclick="get_results();" type="button" class="signup-form-btn" value="Get Results">
+</li>
+</ul>
+</div>
+
 </div>
 <!--<div class="detail-colum">-->
 <div class="about-profile-people">
         <h1>Results</h1>
 		<div id="search_result"></div>
-        
-		
-        
-        <div class="pagination">
-        <ul>
-        <li><</li>
-        <li>1</li>
-        <li>2</li>
-        <li class="selected">3</li>
-        <li>4</li>
-        <li>5</li>
-        <li>6</li>
-        <li>7</li>
-        <li>></li>
-        </ul>
-        </div>
-
 </div>
 <script>
+	function clean(string)
+	{
+		if(string == '[]')
+		{
+			return "";
+		}
+		else
+		{
+			string = string.substring(1);
+			string = string.slice(0,-1);
+			return string;
+		}
+	}
+
       function get_results()
 	  {
-	    var city = $('#city option:selected').text();
-		var zip = $('#zip option:selected').text();
-		var industry = $('#industry option:selected').text();
+	    var city = clean($("[name='city']").val());
+		var zip = clean($("[name='zip']").val());
+		var industry = clean($("[name='industry']").val());
 		var keyword = $('#keyword').val();
 		var search = city+" "+zip+" "+industry+" "+keyword;
 		
@@ -108,17 +103,6 @@
         var item = response.items[i];
 		
 		var html = "";
-		/*html += "<p>";
-        html += '<h5 style="padding-left:10px;">';
-		html += '<a href="'+item.formattedUrl+'">'+item.htmlTitle+'</a>';
-		html += '</h5>';
-		html += '<div style="padding-left:10px;">';
-		html += '<cite>'+item.htmlFormattedUrl+'</cite>';
-		html += '</div>';
-		html += '<div style="padding-left:10px;">';
-		html += '<span class="st">'+item.htmlSnippet+'</span>';
-		html += '</div>';
-		html += '</p>';*/
 		html += "<div class='review-inner'>";
         html += '<h2><a href="'+item.formattedUrl+'">'+item.htmlTitle+'</a></h2>';
 		html += '<p>';
@@ -127,19 +111,99 @@
 		html += '</p>';
 		html += '</div>';
 		
-		  
-		  /*<div class="review-inner">
-		  <h2>Need Technicians Urgently</h2>
-		  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam lobortis tempor euismod.<br>
-			Skills: <i>Constant Contact, Social Media Marketing, Adobe Photoshop, English...</i><br>
-			<strong>Post date: Apr 16, 2013 19:15 ET </strong> </p>
-		</div>*/
-		
 		// in production code, item.htmlTitle should have the HTML entities escaped.
         document.getElementById("search_result").innerHTML += html;
+		
       }
-    }
+	
+	var pagination = '<div class="pagination"><ul><li><</li><li>1</li><li>2</li><li class="selected">3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>></li></ul></div>';
+	$(pagination).insertAfter("#search_result");
+    
+	}
     </script>
+	<script src="<?php echo asset_js('tag.js');?>"></script>
+<script>
+
+    $('#zip')
+        .textext({
+            plugins : 'tags autocomplete'
+        })
+        .bind('getSuggestions', function(e, data)
+        {
+        	var list = [
+                    '10001',
+                    '10002',
+                    '10003',
+                    '10004',
+                    '10005'
+                ],
+                textext = $(e.target).textext()[0],
+                query = (data ? data.query : '') || ''
+                ;
+
+            $(this).trigger(
+                'setSuggestions',
+                { result : textext.itemManager().filter(list, query) }
+            );
+        })
+        ;
+		
+		$('#city')
+        .textext({
+            plugins : 'tags autocomplete'
+        })
+        .bind('getSuggestions', function(e, data)
+        {
+           
+			var list = [
+                    'New york'
+                ],
+                textext = $(e.target).textext()[0],
+                query = (data ? data.query : '') || ''
+                ;
+
+            $(this).trigger(
+                'setSuggestions',
+                { result : textext.itemManager().filter(list, query) }
+            );
+        })
+        ;
+		
+		$('#industry')
+        .textext({
+            plugins : 'tags autocomplete'
+        })
+        .bind('getSuggestions', function(e, data)
+        {
+          
+					
+			var list = [
+                    'Resturants',
+					'Hospitality',
+					'General Contractors',
+					'Handy Men',
+					'Photography',
+					'Artists',
+					'Musicians',
+					'Towing',
+					'Flat beds',
+					'Body shops',
+					'Talent Agencies',
+					'Security'
+                ],
+                textext = $(e.target).textext()[0],
+                query = (data ? data.query : '') || ''
+                ;
+
+            $(this).trigger(
+                'setSuggestions',
+                { result : textext.itemManager().filter(list, query) }
+            );
+        })
+        ;
+        
+        
+</script>
 <!--</div>-->
 
 <!-- detail Colum -->
