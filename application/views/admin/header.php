@@ -14,7 +14,14 @@
 	<!--[if IE 6]><link rel="stylesheet" type="text/css" href="css/ie6.css" media="screen" /><![endif]-->
     <!--[if IE 7]><link rel="stylesheet" type="text/css" href="css/ie.css" media="screen" /><![endif]-->
     <!-- BEGIN: load jquery -->
-    <script src="<?php echo admin_asset_js('jquery-1.6.4.min.js');?>" type="text/javascript"></script>
+<?php 
+foreach($output->css_files as $file): ?>
+<link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
+<?php endforeach; ?>
+<?php foreach($output->js_files as $file): ?>
+<script src="<?php echo $file; ?>"></script>
+<?php endforeach; ?>
+	<!--<script src="<?php echo admin_asset_js('jquery-1.6.4.min.js');?>" type="text/javascript"></script>-->
     <script type="text/javascript" src="<?php echo admin_asset_js('jquery-ui/jquery.ui.core.min.js');?>"></script>
     <script src="<?php echo admin_asset_js('jquery-ui/jquery.ui.widget.min.js');?>" type="text/javascript"></script>
     <script src="<?php echo admin_asset_js('jquery-ui/jquery.ui.accordion.min.js');?>" type="text/javascript"></script>
@@ -51,13 +58,6 @@
 
         });
     </script>
-<?php 
-foreach($output->css_files as $file): ?>
-<link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
-<?php endforeach; ?>
-<?php foreach($output->js_files as $file): ?>
-<script src="<?php echo $file; ?>"></script>
-<?php endforeach; ?>
 
 </head>
 <body>

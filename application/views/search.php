@@ -31,19 +31,35 @@
 <li>
 	<table width="100%">
 		<tr>
+			<td width="33%">State</td>
+			<td width="33%">County</td>
 			<td width="33%">City</td>
-			<td width="33%">Zip</td>
-			<td width="33%">Market Segment</td>
 		</tr>
 		<tr>
 			<td>
+				<textarea name="state" id="state" class="input qtr" rows="1"></textarea>
+			</td>
+			<td>
+				<textarea name="county" id="county" class="input qtr" rows="1"></textarea>
+			</td>
+			<td>
 				<textarea name="city" id="city" class="input qtr" rows="1"></textarea>
 			</td>
+		</tr>
+		<tr>
+			<td width="33%">Zip</td>
+			<td width="33%">Market Segment</td>
+			<td width="33%"></td>
+		</tr>
+		<tr>
 			<td>
 				<textarea name="zip" id="zip" class="input qtr" rows="1"></textarea>
 			</td>
 			<td>
 				<textarea name="industry" id="industry" class="input qtr" rows="1"></textarea>
+			</td>
+			<td>
+				&nbsp;
 			</td>
 		</tr>
 	</table>
@@ -123,20 +139,85 @@
     </script>
 	<script src="<?php echo asset_js('tag.js');?>"></script>
 <script>
+var json_states = <?php echo json_encode($states)?>;
+var json_counties = <?php echo json_encode($counties)?>;
+var json_cities = <?php echo json_encode($cities)?>;
+var json_zip = <?php echo json_encode($zip)?>;
 
+var temp_states = jQuery.parseJSON( json_states );
+var temp_counties = jQuery.parseJSON( json_counties );
+var temp_cities = jQuery.parseJSON( json_cities );
+var temp_zip = jQuery.parseJSON( json_zip );
+
+var state = [];
+var county = [];
+var city = [];
+var zip = [];
+
+for(var i=0;i<temp_states.length;i++)
+{
+	state.push(temp_states[i].state_name);
+}
+
+for(var i=0;i<temp_counties.length;i++)
+{
+	county.push(temp_counties[i].county_name);
+}
+
+for(var i=0;i<temp_cities.length;i++)
+{
+	city.push(temp_cities[i].city_name);
+}
+
+for(var i=0;i<temp_zip.length;i++)
+{
+	zip.push(temp_zip[i].zip);
+}
+
+
+	$('#state')
+        .textext({
+            plugins : 'tags autocomplete'
+        })
+        .bind('getSuggestions', function(e, data)
+        {
+        	var list = state,
+                textext = $(e.target).textext()[0],
+                query = (data ? data.query : '') || ''
+                ;
+
+            $(this).trigger(
+                'setSuggestions',
+                { result : textext.itemManager().filter(list, query) }
+            );
+        })
+        ;
+		
+		$('#county')
+        .textext({
+            plugins : 'tags autocomplete'
+        })
+        .bind('getSuggestions', function(e, data)
+        {
+        	var list = county,
+                textext = $(e.target).textext()[0],
+                query = (data ? data.query : '') || ''
+                ;
+
+            $(this).trigger(
+                'setSuggestions',
+                { result : textext.itemManager().filter(list, query) }
+            );
+        })
+        ;
+	
     $('#zip')
         .textext({
             plugins : 'tags autocomplete'
         })
         .bind('getSuggestions', function(e, data)
         {
-        	var list = [
-                    '10001',
-                    '10002',
-                    '10003',
-                    '10004',
-                    '10005'
-                ],
+        	var list = zip,
                 textext = $(e.target).textext()[0],
                 query = (data ? data.query : '') || ''
                 ;
@@ -155,9 +236,7 @@
         .bind('getSuggestions', function(e, data)
         {
            
-			var list = [
-                    'New york'
-                ],
+			var list = city,
                 textext = $(e.target).textext()[0],
                 query = (data ? data.query : '') || ''
                 ;

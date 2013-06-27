@@ -37,7 +37,7 @@ a:hover {
 ----------------------------------------------- */
 .container_12,
 .container_16 {
-	background:#2E5E79;
+	/*background:#2E5E79;*/
 }
 
 
@@ -63,7 +63,7 @@ h1 a {
 	margin-bottom:0;
 }
 
-.header-repeat{background:url(../img/header-repeat.jpg) repeat-x;}
+.header-repeat{/*background:url(../img/header-repeat.jpg) repeat-x;*/}
 
 #branding a{color:#A1EAFF; font-weight:normal;}
 #branding a:hover{color:#fff;}
@@ -92,6 +92,7 @@ h2#page-heading {
 	background:#fff;
 	margin-bottom:20px;
 	padding:10px 10px 10px 10px; margin-left:-8px;
+	border: 1px solid #414141;
 }
 .box.grid{padding-bottom:40px;}
 .box.round{
@@ -146,7 +147,7 @@ h2#page-heading {
 	background-color:transparent;
 }
 
-.box.first{margin-top:20px;}
+.box.first{margin-top:20px;margin-left:20px;}
 
 .block {
 	padding-top:20px;
@@ -407,8 +408,8 @@ label.error
 ----------------------------------------------- */
 #site_info {
 	color:#fff;
-	background:#204562;
-	border-top:1px solid #1d3b53;
+	background:#414141;
+	border-top:1px solid #414141;
 	padding-left:20px;
 
 }

@@ -37,8 +37,8 @@
 {
 	display: inline;
 	float: left;
-	margin-left: 1%;
-	margin-right: 1%;
+	/*margin-left: 1%;
+	margin-right: 1%;*/
 	
 }
 
@@ -63,7 +63,9 @@
 .container_12 .grid_12,
 .container_16 .grid_16
 {
-	width: 98%;
+	/*width: 98%;*/
+	width: 100%;
+	background: #414141;
 }
 
 /* =Grid >> Children (Alpha ~ First, Omega ~ Last)

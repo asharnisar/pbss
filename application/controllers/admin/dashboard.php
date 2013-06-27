@@ -82,6 +82,90 @@ class Dashboard extends CI_Controller {
 		$this->load->view('admin/users',$data);
 	}
 	
+	function country()
+	{
+		$data = array();
+		$this->load->library('grocery_CRUD');
+		$this->grocery_crud->unset_jquery();
+		//$this->grocery_crud->display_as('country_name','Countries');
+		$this->grocery_crud->set_table('countries');
+						/*->columns('username','email')
+						->display_as('username','User Name')
+						->display_as('email','Email Addresss');*/
+		//$this->grocery_crud->unset_add();				
+        $data['output'] = $this->grocery_crud->render();
+		$data['title'] = "Countries";
+		$this->load->view('admin/users',$data);
+	}
+	
+	function state()
+	{
+		$data = array();
+		$this->load->library('grocery_CRUD');
+		$this->grocery_crud->unset_jquery();
+		$this->grocery_crud->display_as('country_id','Country');
+		$this->grocery_crud->set_table('states');
+						/*->columns('username','email')
+						->display_as('username','User Name')
+						->display_as('email','Email Addresss');*/
+		//$this->grocery_crud->unset_add();				
+        $this->grocery_crud->set_relation('country_id','countries','country_name');
+		$data['output'] = $this->grocery_crud->render();
+		$data['title'] = "States";
+		$this->load->view('admin/users',$data);
+	}
+	
+	function county()
+	{
+		$data = array();
+		$this->load->library('grocery_CRUD');
+		$this->grocery_crud->unset_jquery();
+		$this->grocery_crud->display_as('state_id','State');
+		$this->grocery_crud->set_table('counties');
+						/*->columns('username','email')
+						->display_as('username','User Name')
+						->display_as('email','Email Addresss');*/
+		//$this->grocery_crud->unset_add();				
+        $this->grocery_crud->set_relation('state_id','states','state_name');
+		$data['output'] = $this->grocery_crud->render();
+		$data['title'] = "Counties";
+		$this->load->view('admin/users',$data);
+	}
+	
+	function city()
+	{
+		$data = array();
+		$this->load->library('grocery_CRUD');
+		$this->grocery_crud->unset_jquery();
+		$this->grocery_crud->display_as('county_id','County');
+		$this->grocery_crud->set_table('cities');
+						/*->columns('username','email')
+						->display_as('username','User Name')
+						->display_as('email','Email Addresss');*/
+		//$this->grocery_crud->unset_add();				
+        $this->grocery_crud->set_relation('county_id','counties','county_name');
+		$data['output'] = $this->grocery_crud->render();
+		$data['title'] = "Cities";
+		$this->load->view('admin/users',$data);
+	}
+	
+	function zip()
+	{
+		$data = array();
+		$this->load->library('grocery_CRUD');
+		$this->grocery_crud->unset_jquery();
+		$this->grocery_crud->display_as('city_id','City');
+		$this->grocery_crud->set_table('zip_codes');
+						/*->columns('username','email')
+						->display_as('username','User Name')
+						->display_as('email','Email Addresss');*/
+		//$this->grocery_crud->unset_add();				
+        $this->grocery_crud->set_relation('city_id','cities','city_name');
+		$data['output'] = $this->grocery_crud->render();
+		$data['title'] = "Zip Codes";
+		$this->load->view('admin/users',$data);
+	}
+	
 	public function bos()
 	{
 		$data = array();

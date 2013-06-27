@@ -9,7 +9,8 @@ ul.nav,
 ul.nav * { margin:0;padding:0;}
 ul.nav {
   position:relative;
-  background:url(../img/nav-repeat2.jpg) repeat-x !important;
+  /*background:url(../img/nav-repeat2.jpg) repeat-x !important;*/
+  background : #ccc;
   max-width:100%;
   height:3.7em; 
   }

@@ -32,8 +32,17 @@ class Home extends CI_Controller {
 	public function index()
 	{
 		//$this->load->view('welcome_message');
-		
-		$this->load->view('search');
+		$this->load->model('locations_model');
+		$states = json_encode($this->locations_model->get_all_states());
+		$counties = json_encode($this->locations_model->get_all_counties());
+		$cities = json_encode($this->locations_model->get_all_cities());
+		$zip = json_encode($this->locations_model->get_all_zip());
+		$data = array();
+		$data['states'] = $states;
+		$data['counties'] = $counties;
+		$data['cities'] = $cities;
+		$data['zip'] = $zip;
+		$this->load->view('search',$data);
 	}
 }
 

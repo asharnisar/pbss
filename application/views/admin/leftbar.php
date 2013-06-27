@@ -4,9 +4,12 @@
                     <ul class="section menu">
                         <li><a class="menuitem">Setup</a>
                             <ul class="submenu">
-                                <li><a href="<?php echo base_url();?>admin/dashboard/industry">Industry</a> </li>
-                                <li><a href="<?php echo base_url();?>admin/dashboard/city_zip">City & Zip Code</a> </li>
-                              
+                                <li><a href="<?php echo base_url();?>admin/dashboard/industry">Industries</a> </li>
+                                <li><a href="<?php echo base_url();?>admin/dashboard/country">Countries</a> </li>
+                                <li><a href="<?php echo base_url();?>admin/dashboard/state">States</a> </li>
+								<li><a href="<?php echo base_url();?>admin/dashboard/county">Counties</a> </li>
+								<li><a href="<?php echo base_url();?>admin/dashboard/city">Cities</a> </li>
+								<li><a href="<?php echo base_url();?>admin/dashboard/zip">Zip Codes</a> </li>
                             </ul>
                         </li>
                         <li><a class="menuitem">Configuration</a>
