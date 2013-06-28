@@ -56,7 +56,7 @@ class Dashboard extends CI_Controller {
 	{
 		$data = array();
 		$this->load->library('grocery_CRUD');
-		$this->grocery_crud->unset_jquery();
+		//$this->grocery_crud->unset_jquery();
 		$this->grocery_crud->set_table('industries');
 						/*->columns('username','email')
 						->display_as('username','User Name')
@@ -71,7 +71,7 @@ class Dashboard extends CI_Controller {
 	{
 		$data = array();
 		$this->load->library('grocery_CRUD');
-		$this->grocery_crud->unset_jquery();
+		//$this->grocery_crud->unset_jquery();
 		$this->grocery_crud->set_table('cities_zip');
 						/*->columns('username','email')
 						->display_as('username','User Name')
@@ -86,7 +86,7 @@ class Dashboard extends CI_Controller {
 	{
 		$data = array();
 		$this->load->library('grocery_CRUD');
-		$this->grocery_crud->unset_jquery();
+		//$this->grocery_crud->unset_jquery();
 		//$this->grocery_crud->display_as('country_name','Countries');
 		$this->grocery_crud->set_table('countries');
 						/*->columns('username','email')
@@ -102,7 +102,7 @@ class Dashboard extends CI_Controller {
 	{
 		$data = array();
 		$this->load->library('grocery_CRUD');
-		$this->grocery_crud->unset_jquery();
+		//$this->grocery_crud->unset_jquery();
 		$this->grocery_crud->display_as('country_id','Country');
 		$this->grocery_crud->set_table('states');
 						/*->columns('username','email')
@@ -119,7 +119,7 @@ class Dashboard extends CI_Controller {
 	{
 		$data = array();
 		$this->load->library('grocery_CRUD');
-		$this->grocery_crud->unset_jquery();
+		//$this->grocery_crud->unset_jquery();
 		$this->grocery_crud->display_as('state_id','State');
 		$this->grocery_crud->set_table('counties');
 						/*->columns('username','email')
@@ -136,7 +136,7 @@ class Dashboard extends CI_Controller {
 	{
 		$data = array();
 		$this->load->library('grocery_CRUD');
-		$this->grocery_crud->unset_jquery();
+		//$this->grocery_crud->unset_jquery();
 		$this->grocery_crud->display_as('county_id','County');
 		$this->grocery_crud->set_table('cities');
 						/*->columns('username','email')
@@ -153,7 +153,7 @@ class Dashboard extends CI_Controller {
 	{
 		$data = array();
 		$this->load->library('grocery_CRUD');
-		$this->grocery_crud->unset_jquery();
+		//$this->grocery_crud->unset_jquery();
 		$this->grocery_crud->display_as('city_id','City');
 		$this->grocery_crud->set_table('zip_codes');
 						/*->columns('username','email')
