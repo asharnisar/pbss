@@ -97,11 +97,14 @@
 
       function get_results()
 	  {
+		var state = clean($("[name='state']").val());
+		var county = clean($("[name='county']").val());
 	    var city = clean($("[name='city']").val());
 		var zip = clean($("[name='zip']").val());
 		var industry = clean($("[name='industry']").val());
 		var keyword = $('#keyword').val();
-		var search = city+" "+zip+" "+industry+" "+keyword;
+		var search = state+" "+county+" "+city+" "+zip+" "+industry+" "+keyword;
+		search = search.replace(/"/g, "");
 		
 		$.ajax({
 		  url: "https://www.googleapis.com/customsearch/v1?key=AIzaSyA4iMwtbw8lVVClDBge1hKLqSC8j_sI-rU&cx=008099485685892913783:gukgeeg2dvq&q="+search+"&gl=usarhan&googlehost=google.com",
