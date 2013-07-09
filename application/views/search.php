@@ -49,7 +49,7 @@
 		<tr>
 			<td width="33%">Zip</td>
 			<td width="33%">Market Segment</td>
-			<td width="33%"></td>
+			<td width="33%">Number of Records</td>
 		</tr>
 		<tr>
 			<td>
@@ -59,7 +59,18 @@
 				<textarea name="industry" id="industry" class="input qtr" rows="1"></textarea>
 			</td>
 			<td>
-				&nbsp;
+				<select name="total" id="total" class="input qtr" style="background:#fff;">
+				    <option value="1">1</option>
+				    <option value="2">2</option>
+				    <option value="3">3</option>
+				    <option value="4">4</option>
+				    <option value="5">5</option>
+				    <option value="6">6</option>
+				    <option value="7">7</option>
+				    <option value="8">8</option>
+				    <option value="9">9</option>
+				    <option value="10">10</option>
+				</select>
 			</td>
 		</tr>
 	</table>
@@ -103,11 +114,12 @@
 		var zip = clean($("[name='zip']").val());
 		var industry = clean($("[name='industry']").val());
 		var keyword = $('#keyword').val();
+		var num = $("#total option:selected").val();
 		var search = state+" "+county+" "+city+" "+zip+" "+industry+" "+keyword;
 		search = search.replace(/"/g, "");
 		
 		$.ajax({
-		  url: "https://www.googleapis.com/customsearch/v1?key=AIzaSyA4iMwtbw8lVVClDBge1hKLqSC8j_sI-rU&cx=008099485685892913783:gukgeeg2dvq&q="+search+"&gl=usarhan&googlehost=google.com",
+		  url: "https://www.googleapis.com/customsearch/v1?key=AIzaSyA4iMwtbw8lVVClDBge1hKLqSC8j_sI-rU&cx=008099485685892913783:gukgeeg2dvq&q="+search+"&gl=usarhan&googlehost=google.com&num="+num,
 		  context: document.body
 		}).done(function(result) {
 		  
