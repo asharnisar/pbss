@@ -12,7 +12,7 @@
 								<li><a href="<?php echo base_url();?>admin/dashboard/zip">Zip Codes</a> </li>
                             </ul>
                         </li>
-                        <li><a class="menuitem">Configuration</a>
+                        <!--<li><a class="menuitem">Configuration</a>
                             <ul class="submenu">
                                 <li><a>Submenu 1</a> </li>
                                 <li><a>Submenu 2</a> </li>
@@ -23,7 +23,7 @@
                                 <li><a>Submenu 1</a> </li>
                                 <li><a>Submenu 2</a> </li>
                             </ul>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
             </div>

@@ -46,7 +46,9 @@ class Dashboard extends CI_Controller {
 						->columns('username','email')
 						->display_as('username','User Name')
 						->display_as('email','Email Addresss');
-		$this->grocery_crud->unset_add();				
+		$this->grocery_crud->unset_add();
+		$this->grocery_crud->unset_edit();
+		$this->grocery_crud->unset_delete();				
         $data['output'] = $this->grocery_crud->render();
 		$data['title'] = "All Users";
 		$this->load->view('admin/users',$data);

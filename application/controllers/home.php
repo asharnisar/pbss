@@ -37,11 +37,13 @@ class Home extends CI_Controller {
 		$counties = json_encode($this->locations_model->get_all_counties());
 		$cities = json_encode($this->locations_model->get_all_cities());
 		$zip = json_encode($this->locations_model->get_all_zip());
+		$industries = json_encode($this->locations_model->get_all_industries());
 		$data = array();
 		$data['states'] = $states;
 		$data['counties'] = $counties;
 		$data['cities'] = $cities;
 		$data['zip'] = $zip;
+		$data['industries'] = $industries;
 		$this->load->view('search',$data);
 	}
 }

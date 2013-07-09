@@ -2,7 +2,7 @@
 	$this->load->view('header');
 ?>
 <!-------------- start navigation ---------------->
-<div class="navigation">
+<!--<div class="navigation">
   <div class="wrapper">
     <ul>
       <a href="javascript:;">
@@ -18,7 +18,7 @@
       </a>
     </ul>
   </div>
-</div>
+</div>-->
 <!-------------- start navigation ---------------->
 <div class="content">
 <div class="wrapper">
@@ -135,8 +135,8 @@
 		
       }
 	
-	var pagination = '<div class="pagination"><ul><li><</li><li>1</li><li>2</li><li class="selected">3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>></li></ul></div>';
-	$(pagination).insertAfter("#search_result");
+	/*var pagination = '<div class="pagination"><ul><li><</li><li>1</li><li>2</li><li class="selected">3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>></li></ul></div>';
+	$(pagination).insertAfter("#search_result");*/
     
 	}
     </script>
@@ -146,16 +146,19 @@ var json_states = <?php echo json_encode($states)?>;
 var json_counties = <?php echo json_encode($counties)?>;
 var json_cities = <?php echo json_encode($cities)?>;
 var json_zip = <?php echo json_encode($zip)?>;
+var json_industry = <?php echo json_encode($industries)?>;
 
 var temp_states = jQuery.parseJSON( json_states );
 var temp_counties = jQuery.parseJSON( json_counties );
 var temp_cities = jQuery.parseJSON( json_cities );
 var temp_zip = jQuery.parseJSON( json_zip );
+var temp_industry = jQuery.parseJSON( json_industry );
 
 var state = [];
 var county = [];
 var city = [];
 var zip = [];
+var industry = [];
 
 for(var i=0;i<temp_states.length;i++)
 {
@@ -175,6 +178,11 @@ for(var i=0;i<temp_cities.length;i++)
 for(var i=0;i<temp_zip.length;i++)
 {
 	zip.push(temp_zip[i].zip);
+}
+
+for(var i=0;i<temp_industry.length;i++)
+{
+	industry.push(temp_industry[i].name);
 }
 
 
@@ -259,20 +267,7 @@ for(var i=0;i<temp_zip.length;i++)
         {
           
 					
-			var list = [
-                    'Resturants',
-					'Hospitality',
-					'General Contractors',
-					'Handy Men',
-					'Photography',
-					'Artists',
-					'Musicians',
-					'Towing',
-					'Flat beds',
-					'Body shops',
-					'Talent Agencies',
-					'Security'
-                ],
+			var list = industry,
                 textext = $(e.target).textext()[0],
                 query = (data ? data.query : '') || ''
                 ;

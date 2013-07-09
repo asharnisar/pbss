@@ -16,6 +16,15 @@ class Locations_model extends CI_Model {
 		return $result;
 	}
 	
+	function get_all_industries()
+	{
+	    $sql = "SELECT * FROM industries";
+	    $query = $this->db->query($sql);
+	    $result = $query->result_array(); 
+		$query->free_result();
+		return $result;
+	}
+	
 	function get_all_states()
 	{
 	    $sql = "SELECT * FROM states";

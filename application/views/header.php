@@ -40,7 +40,7 @@ function toogle_div()
 <div class="top-set-menu" id="branches" style="display:none;">
 <div class="tooltip-arrow"></div>
 <ul>
-<li class="btm-brd"><a href="#">Account Setting</a></li>
+<li class="btm-brd"><a href="<?php echo base_url();?>admin">Admin Panel</a></li>
 <li><a href="<?php echo base_url();?>auth/logout">Logout</a></li>
 </ul>
 </div>

@@ -72,7 +72,7 @@ foreach($output->css_files as $file): ?>
                     <div class="floatleft marginleft10">
                         <ul class="inline-ul floatleft">
                             <li>Hello Admin</li>
-                            <li><a href="#">Config</a></li>
+                            <li><a href="<?php echo base_url();?>">Frontend</a></li>
                             <li><a href="<?php echo base_url();?>admin/auth/logout">Logout</a></li>
                         </ul>
                         <br />
@@ -89,10 +89,10 @@ foreach($output->css_files as $file): ?>
             <ul class="nav main">
                 <li class="ic-dashboard"><a href="<?php echo base_url();?>admin/dashboard"><span>Dashboard</span></a> </li>
                 <li class="ic-form-style"><a href=""><span>Users</span></a>
-                    <ul>
+                    <!--<ul>
                         <li><a href="#">BOS</a> </li>
                         <li><a href="#">POS</a> </li>
-                    </ul>
+                    </ul>-->
                 </li>
                 <!--<li class="ic-typography"><a href="#"><span>Ads Management</span></a></li>
 				<li class="ic-charts"><a href="#"><span>News Letter</span></a></li>
