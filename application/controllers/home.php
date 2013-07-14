@@ -27,18 +27,22 @@ class Home extends CI_Controller {
 			redirect('auth/login', 'refresh');
 		}
 		
+		$this->load->model('locations_model');
+		
+		
 	} 
-	 
+	
 	public function index()
 	{
 		//$this->load->view('welcome_message');
-		$this->load->model('locations_model');
+		$countries = json_encode($this->locations_model->get_all_countries());
 		$states = json_encode($this->locations_model->get_all_states());
 		$counties = json_encode($this->locations_model->get_all_counties());
 		$cities = json_encode($this->locations_model->get_all_cities());
 		$zip = json_encode($this->locations_model->get_all_zip());
 		$industries = json_encode($this->locations_model->get_all_industries());
 		$data = array();
+		$data['countries'] = $countries;
 		$data['states'] = $states;
 		$data['counties'] = $counties;
 		$data['cities'] = $cities;

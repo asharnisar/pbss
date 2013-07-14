@@ -4,7 +4,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Untitled Document</title>
 <link href="<?php echo asset_css('style1.css');?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo asset_css('jquery.tagit.css');?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo asset_css('tagit.ui-zendesk.css');?>" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
 <script src="<?php echo admin_asset_js('jquery-1.6.4.min.js');?>" type="text/javascript"></script>
+<script src="<?php echo asset_js('jquery-ui-1.8.6.custom.min.js');?>" type="text/javascript"></script>
+<script src="<?php echo asset_js('tag-it.js');?>" type="text/javascript"></script>
 <script>
 function toogle_div()
 {

@@ -27,38 +27,51 @@
 <div class="box-fold"></div>
 <div class="signup-form">
 <h1>Search</h1>
-<ul>
-<li>
+<ul class="signup-form_ul">
+<li class="signup-form_li">
 	<table width="100%">
 		<tr>
-			<td width="33%">State</td>
-			<td width="33%">County</td>
-			<td width="33%">City</td>
+			<td width="50%">Country</td>
+			<td width="50%">State</td>
+			
 		</tr>
 		<tr>
 			<td>
-				<textarea name="state" id="state" class="input qtr" rows="1"></textarea>
+			    <input name="country" id="country" class="input qtr" />
+				
 			</td>
 			<td>
-				<textarea name="county" id="county" class="input qtr" rows="1"></textarea>
+			    <input name="state" id="state" class="input qtr" />
+				
+			</td>
+			
+		</tr>
+		<tr>
+		    <td width="50%">City</td>
+		    <td width="50%">Zip</td>
+		</tr>
+		<tr>
+		    <td>
+			    <input name="city" id="city" class="input qtr" />
+				
 			</td>
 			<td>
-				<textarea name="city" id="city" class="input qtr" rows="1"></textarea>
+			    <input name="zip" id="zip" class="input qtr" />
+				
 			</td>
 		</tr>
 		<tr>
-			<td width="33%">Zip</td>
-			<td width="33%">Market Segment</td>
-			<td width="33%">Number of Records</td>
+			
+			<td width="50%">Market Segment</td>
+			<td width="50%">Number of Records</td>
 		</tr>
 		<tr>
 			<td>
-				<textarea name="zip" id="zip" class="input qtr" rows="1"></textarea>
+			    <input name="industry" id="industry" class="input qtr" />
+				
 			</td>
 			<td>
-				<textarea name="industry" id="industry" class="input qtr" rows="1"></textarea>
-			</td>
-			<td>
+			
 				<select name="total" id="total" class="input qtr" style="background:#fff;">
 				    <option value="1">1</option>
 				    <option value="2">2</option>
@@ -75,11 +88,11 @@
 		</tr>
 	</table>
 </li>
-<li>Keyword</li>
-<li><input name="keyword" id="keyword" type="text" class="input full" /></li>
+<li class="signup-form_li">Keyword</li>
+<li class="signup-form_li"><input name="keyword" id="keyword" type="text" class="input full" /></li>
 
-<li>&nbsp;</li>
-<li>
+<li class="signup-form_li">&nbsp;</li>
+<li class="signup-form_li">
 	<input name="button" onclick="get_results();" type="button" class="signup-form-btn" value="Get Results">
 </li>
 </ul>
@@ -108,11 +121,11 @@
 
       function get_results()
 	  {
-		var state = clean($("[name='state']").val());
-		var county = clean($("[name='county']").val());
-	    var city = clean($("[name='city']").val());
-		var zip = clean($("[name='zip']").val());
-		var industry = clean($("[name='industry']").val());
+		var state = $("[name='state']").val();
+		var county = $("[name='country']").val();
+	    var city = $("[name='city']").val();
+		var zip = $("[name='zip']").val();
+		var industry = $("[name='industry']").val();
 		var keyword = $('#keyword').val();
 		var num = $("#total option:selected").val();
 		var search = state+" "+county+" "+city+" "+zip+" "+industry+" "+keyword;
@@ -152,146 +165,134 @@
     
 	}
     </script>
-	<script src="<?php echo asset_js('tag.js');?>"></script>
+
 <script>
-var json_states = <?php echo json_encode($states)?>;
-var json_counties = <?php echo json_encode($counties)?>;
-var json_cities = <?php echo json_encode($cities)?>;
-var json_zip = <?php echo json_encode($zip)?>;
-var json_industry = <?php echo json_encode($industries)?>;
+var sampleTags = ['c++', 'java', 'php', 'coldfusion', 'javascript', 'asp', 'ruby', 'python', 'c', 'scala', 'groovy', 'haskell', 'perl', 'erlang', 'apl', 'cobol', 'go', 'lua'];
 
-var temp_states = jQuery.parseJSON( json_states );
-var temp_counties = jQuery.parseJSON( json_counties );
-var temp_cities = jQuery.parseJSON( json_cities );
-var temp_zip = jQuery.parseJSON( json_zip );
-var temp_industry = jQuery.parseJSON( json_industry );
+var countries = [];
+var industries = [];
 
-var state = [];
-var county = [];
-var city = [];
-var zip = [];
-var industry = [];
-
-for(var i=0;i<temp_states.length;i++)
+var countries_json = $.parseJSON('<?php echo $countries;?>');
+var industries_json = $.parseJSON('<?php echo $industries;?>');
+if(industries_json.length)
 {
-	state.push(temp_states[i].state_name);
+    for(var i=0;i<industries_json.length;i++)
+    {
+        industries.push(industries_json[i].name);
+    }
 }
 
-for(var i=0;i<temp_counties.length;i++)
+if(countries_json.length)
 {
-	county.push(temp_counties[i].county_name);
+    for(var i=0;i<countries_json.length;i++)
+    {
+        countries.push(countries_json[i].country_name);
+    }
 }
 
-for(var i=0;i<temp_cities.length;i++)
-{
-	city.push(temp_cities[i].city_name);
-}
+  $('#country').tagit({
+                allowSpaces: true,
+                allowDuplicates: false,
+                availableTags: countries
+            });                
+  
+  
+  $('#state').tagit({
+                allowSpaces: true,
+                allowDuplicates: false,
+                tagSource: function(request, response) 
+                {
+                    var selected_countries = $("#country").tagit("assignedTags");
+                    if(selected_countries.length > 0)
+                    {
+                        $.ajax({
+                            type: "POST",
+                            url:        "<?php echo base_url();?>ajax/get_states",
+                            dataType:   "json",
+                            data: {countries:selected_countries},
+                            success:    function(data) 
+                            {
+                                //return data;
+                                response( $.map( data, function( item ) {
+                                return {
+                                    label: item.state_name,
+                                    value: item.state_name
+                                    
+                                }
+                            }));
+                            }
 
-for(var i=0;i<temp_zip.length;i++)
-{
-	zip.push(temp_zip[i].zip);
-}
-
-for(var i=0;i<temp_industry.length;i++)
-{
-	industry.push(temp_industry[i].name);
-}
-
-
-	$('#state')
-        .textext({
-            plugins : 'tags autocomplete'
-        })
-        .bind('getSuggestions', function(e, data)
-        {
-        	var list = state,
-                textext = $(e.target).textext()[0],
-                query = (data ? data.query : '') || ''
-                ;
-
-            $(this).trigger(
-                'setSuggestions',
-                { result : textext.itemManager().filter(list, query) }
-            );
-        })
-        ;
-		
-		$('#county')
-        .textext({
-            plugins : 'tags autocomplete'
-        })
-        .bind('getSuggestions', function(e, data)
-        {
-        	var list = county,
-                textext = $(e.target).textext()[0],
-                query = (data ? data.query : '') || ''
-                ;
-
-            $(this).trigger(
-                'setSuggestions',
-                { result : textext.itemManager().filter(list, query) }
-            );
-        })
-        ;
-	
-    $('#zip')
-        .textext({
-            plugins : 'tags autocomplete'
-        })
-        .bind('getSuggestions', function(e, data)
-        {
-        	var list = zip,
-                textext = $(e.target).textext()[0],
-                query = (data ? data.query : '') || ''
-                ;
-
-            $(this).trigger(
-                'setSuggestions',
-                { result : textext.itemManager().filter(list, query) }
-            );
-        })
-        ;
-		
-		$('#city')
-        .textext({
-            plugins : 'tags autocomplete'
-        })
-        .bind('getSuggestions', function(e, data)
-        {
-           
-			var list = city,
-                textext = $(e.target).textext()[0],
-                query = (data ? data.query : '') || ''
-                ;
-
-            $(this).trigger(
-                'setSuggestions',
-                { result : textext.itemManager().filter(list, query) }
-            );
-        })
-        ;
-		
-		$('#industry')
-        .textext({
-            plugins : 'tags autocomplete'
-        })
-        .bind('getSuggestions', function(e, data)
-        {
-          
-					
-			var list = industry,
-                textext = $(e.target).textext()[0],
-                query = (data ? data.query : '') || ''
-                ;
-
-            $(this).trigger(
-                'setSuggestions',
-                { result : textext.itemManager().filter(list, query) }
-            );
-        })
-        ;
+                        });
+                    }
+                }
+            });     
+             
+  
         
-        
+  $('#city').tagit({
+                allowSpaces: true,
+                allowDuplicates: false,
+                tagSource: function(request, response) 
+                {
+                    var selected_states = $("#state").tagit("assignedTags");
+                    if(selected_states.length > 0)
+                    {
+                        $.ajax({
+                            type: "POST",
+                            url:        "<?php echo base_url();?>ajax/get_cities",
+                            dataType:   "json",
+                            data: {states:selected_states},
+                            success:    function(data) 
+                            {
+                                //return data;
+                                response( $.map( data, function( item ) {
+                                return {
+                                    label: item.city_name,
+                                    value: item.city_name
+                                    
+                                }
+                            }));
+                            }
+
+                        });
+                    }
+                }
+            });      
+                  
+  $('#zip').tagit({
+                allowSpaces: true,
+                allowDuplicates: false,
+                tagSource: function(request, response) 
+                {
+                    var selected_cities = $("#city").tagit("assignedTags");
+                    if(selected_cities.length > 0)
+                    {
+                        $.ajax({
+                            type: "POST",
+                            url:        "<?php echo base_url();?>ajax/get_zips",
+                            dataType:   "json",
+                            data: {cities:selected_cities},
+                            success:    function(data) 
+                            {
+                                //return data;
+                                response( $.map( data, function( item ) {
+                                return {
+                                    label: item.zip,
+                                    value: item.zip
+                                    
+                                }
+                            }));
+                            }
+
+                        });
+                    }
+
+                }
+            });                
+  
+  $('#industry').tagit({
+                availableTags: industries
+            });                
 </script>
 <!--</div>-->
 
