@@ -28,8 +28,8 @@ class Home extends CI_Controller {
 		}
 		
 		$this->load->model('locations_model');
-		
-		
+		$this->load->model('search_model');
+		$this->config->load("my_config");
 	} 
 	
 	public function index()
@@ -41,7 +41,12 @@ class Home extends CI_Controller {
 		$cities = json_encode($this->locations_model->get_all_cities());
 		$zip = json_encode($this->locations_model->get_all_zip());
 		$industries = json_encode($this->locations_model->get_all_industries());
+		$websites = $this->search_model->get_all_websites();
+		
+	
 		$data = array();
+		$data['websites'] = $websites;
+		$data['type'] = $this->config->item('website_type');
 		$data['countries'] = $countries;
 		$data['states'] = $states;
 		$data['counties'] = $counties;

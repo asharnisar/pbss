@@ -4,6 +4,7 @@
                     <ul class="section menu">
                         <li><a class="menuitem">Setup</a>
                             <ul class="submenu">
+                                <li><a href="<?php echo base_url();?>admin/dashboard/websites">Websites</a> </li>
                                 <li><a href="<?php echo base_url();?>admin/dashboard/industry">Industries</a> </li>
                                 <li><a href="<?php echo base_url();?>admin/dashboard/country">Countries</a> </li>
                                 <li><a href="<?php echo base_url();?>admin/dashboard/state">States</a> </li>

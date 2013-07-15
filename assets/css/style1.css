@@ -702,7 +702,7 @@ span.customSelect.changed {
 .signup-form_ul {width:860px;}
 .signup-form ul li{float:left; /*width:860px;*/ color:#414141; font-family:'SegoeUISemibold'; font-size:15px;}
 .signup-form_li {width:860px;}
-.signup-form ul li .full{width:526px;}
+.signup-form ul li .full{width:405px;}
 .signup-form ul li .qtr{width:270px;}
 .signup-form ul li .input{float:left; /*background:#fff;*/ border:#d6d6d6 1px solid; padding:8px; border-radius:5px; margin:5px 0;}
 .signup-form ul li .region{float:left; width:186px;}

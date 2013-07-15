@@ -86,10 +86,27 @@
 				</select>
 			</td>
 		</tr>
+		<tr>
+		    <td>Keyword</td>
+		    <td>Website</td>
+		</tr>
+		<tr>
+		    <td><input name="keyword" id="keyword" type="text" class="input full" /></td>
+		    <td>
+		        <select name="website" id="website" class="input qtr" style="background:#fff;">
+				    <?php
+				    foreach($websites as $website)
+				    {
+				    ?>
+				        <option value="<?php echo $website["type_id"].$website['url'];?>"><?php echo $website['name']."&nbsp;&nbsp;&nbsp;     (".$type[$website["type_id"]].")";?></option>
+				    <?php
+				    }
+				    ?>
+				</select>
+		    </td>
+		</tr>
 	</table>
 </li>
-<li class="signup-form_li">Keyword</li>
-<li class="signup-form_li"><input name="keyword" id="keyword" type="text" class="input full" /></li>
 
 <li class="signup-form_li">&nbsp;</li>
 <li class="signup-form_li">
@@ -121,24 +138,39 @@
 
       function get_results()
 	  {
-		var state = $("[name='state']").val();
-		var county = $("[name='country']").val();
-	    var city = $("[name='city']").val();
-		var zip = $("[name='zip']").val();
-		var industry = $("[name='industry']").val();
-		var keyword = $('#keyword').val();
-		var num = $("#total option:selected").val();
-		var search = state+" "+county+" "+city+" "+zip+" "+industry+" "+keyword;
-		search = search.replace(/"/g, "");
+	    var website = $("#website option:selected").val();
+	    var website_type = website.charAt(0);    
+	    website = website.slice(1);
+	    if(parseInt(website_type) == 1)
+	    {
+		    var state = $("[name='state']").val();
+		    var county = $("[name='country']").val();
+	        var city = $("[name='city']").val();
+		    var zip = $("[name='zip']").val();
+		    var industry = $("[name='industry']").val();
+		    var keyword = $('#keyword').val();
+		    var num = $("#total option:selected").val();
+		    
+		    var search = state+" "+county+" "+city+" "+zip+" "+industry+" "+keyword;
+		    search = search.replace(/"/g, "");
+		    var url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyA4iMwtbw8lVVClDBge1hKLqSC8j_sI-rU&cx=008099485685892913783:gukgeeg2dvq&q="+search+"&gl=usarhan&googlehost=google.com&siteSearch="+website+"&siteSearchFilter=i&num="+num; 
+		    
+		    
+		    $.ajax({
+		      url: url,
+		      context: document.body
+		    }).done(function(result) {
+		      
+		      hndlr(result);
 		
-		$.ajax({
-		  url: "https://www.googleapis.com/customsearch/v1?key=AIzaSyA4iMwtbw8lVVClDBge1hKLqSC8j_sI-rU&cx=008099485685892913783:gukgeeg2dvq&q="+search+"&gl=usarhan&googlehost=google.com&num="+num,
-		  context: document.body
-		}).done(function(result) {
-		  
-		  hndlr(result);
-		
-		});
+		    });
+	    }
+	    else
+	    {
+	        // scrapping code goes here
+	        alert("Scrapping work is in progress");
+	    }
+	  
 	  }
 	  
 	  function hndlr(response) {

@@ -69,6 +69,23 @@ class Dashboard extends CI_Controller {
 		$this->load->view('admin/users',$data);
 	}
 	
+	function websites()
+	{
+		$data = array();
+		$this->load->library('grocery_CRUD');
+		//$this->grocery_crud->unset_jquery();
+		$this->grocery_crud->display_as('type_id','Type');
+		$this->grocery_crud->set_table('websites');
+						/*->columns('username','email')
+						->display_as('username','User Name')
+						->display_as('email','Email Addresss');*/
+		//$this->grocery_crud->unset_add();				
+        $this->grocery_crud->set_relation('type_id','website_type','type_name');
+		$data['output'] = $this->grocery_crud->render();
+		$data['title'] = "Websites";
+		$this->load->view('admin/users',$data);
+	}
+	
 	function city_zip()
 	{
 		$data = array();
