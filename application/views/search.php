@@ -73,16 +73,14 @@
 			<td>
 			
 				<select name="total" id="total" class="input qtr" style="background:#fff;">
-				    <option value="1">1</option>
-				    <option value="2">2</option>
-				    <option value="3">3</option>
-				    <option value="4">4</option>
-				    <option value="5">5</option>
-				    <option value="6">6</option>
-				    <option value="7">7</option>
-				    <option value="8">8</option>
-				    <option value="9">9</option>
-				    <option value="10">10</option>
+				    <?php
+				    for($i=1;$i<=20;$i++)
+				    {
+				    ?>
+				    <option value="<?php echo ($i*5);?>"><?php echo ($i*5);?></option>
+				    <?php
+				    }
+				    ?>
 				</select>
 			</td>
 		</tr>
@@ -93,7 +91,9 @@
 		<tr>
 		    <td><input name="keyword" id="keyword" type="text" class="input full" /></td>
 		    <td>
-		        <select name="website" id="website" class="input qtr" style="background:#fff;">
+		        <!--<select name="website" id="website" class="input qtr" style="background:#fff;">-->
+		        <select multiple style="width:544px;" name="website[]" id="website" data-placeholder="Choose Website(s)">
+                <option value=""></option>
 				    <?php
 				    foreach($websites as $website)
 				    {
@@ -119,7 +119,20 @@
 <!--<div class="detail-colum">-->
 <div class="about-profile-people">
         <h1>Results</h1>
-		<div id="search_result"></div>
+        <!--<div id="progressbar"><div class="progress-label">Loading...</div></div>-->
+		<div id="search_result" style="display:none;"></div>
+		<div id="search_result_scrapping" style="display:none;">
+		    <table width="100%" cellpadding="5" style="border:#e6e6e6 1px solid" cellspacing="5" border="1">
+		        <tr>
+		            <td align="center" width="25%"><b>Website</b></td>
+		            <td align="center" width="25%"><b>Criteria</b></td>
+		            <td align="center"><b>Start Time</b></td>
+		            <td align="center"><b>End Time</b></td>
+		            <td width="25%" align="center"><b>Progress</b></td>
+		            <td align="center"><b>Action</b></td>
+		        </tr>
+		    </table>
+		</div>
 </div>
 <script>
 	function clean(string)
@@ -141,21 +154,27 @@
 	    var website = $("#website option:selected").val();
 	    var website_type = website.charAt(0);    
 	    website = website.slice(1);
+	    
+	    var state = $("[name='state']").val();
+	    var country = $("[name='country']").val();
+        var city = $("[name='city']").val();
+	    var zip = $("[name='zip']").val();
+	    var industry = $("[name='industry']").val();
+	    var keyword = $('#keyword').val();
+	    var num = $("#total option:selected").val();
+	    
+	    
 	    if(parseInt(website_type) == 1)
 	    {
-		    var state = $("[name='state']").val();
-		    var county = $("[name='country']").val();
-	        var city = $("[name='city']").val();
-		    var zip = $("[name='zip']").val();
-		    var industry = $("[name='industry']").val();
-		    var keyword = $('#keyword').val();
-		    var num = $("#total option:selected").val();
+	        $("#search_result_scrapping").hide();
+	        $("#search_result").html('');
+	        $("#search_result").show();
 		    
-		    var search = state+" "+county+" "+city+" "+zip+" "+industry+" "+keyword;
+		    var search = country+" "+state+" "+city+" "+zip+" "+industry+" "+keyword;
 		    search = search.replace(/"/g, "");
 		    var url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyA4iMwtbw8lVVClDBge1hKLqSC8j_sI-rU&cx=008099485685892913783:gukgeeg2dvq&q="+search+"&gl=usarhan&googlehost=google.com&siteSearch="+website+"&siteSearchFilter=i&num="+num; 
-		    
-		    
+		    console.log(url);
+		    return;
 		    $.ajax({
 		      url: url,
 		      context: document.body
@@ -168,9 +187,33 @@
 	    else
 	    {
 	        // scrapping code goes here
-	        alert("Scrapping work is in progress");
+	        $('#search_result').hide('');
+	        $('#search_result_scrapping').show('');
+	        
+	        var criteria = "country="+country+"&state="+state+"&city="+city+"&zip="+zip+"&market segment="+industry+"&search term="+keyword;
+		    criteria = criteria.replace(/"/g, "");
+	        
+	        add_tr(website,criteria);
+	        
 	    }
 	  
+	  }
+	  
+	  function add_tr(website,criteria)
+	  {
+	        var time = new Date();
+	        var current_time = time.getHours() + ":"+ time.getMinutes() + ":"+ time.getSeconds();
+	        var html = "";
+	        html += '<tr>';
+	        html +='<td>'+website+'</td>';
+	        html +='<td>'+criteria+'</td>';
+	        html +='<td>'+current_time+'</td>';
+	        html +='<td></td>';
+	        html +='<td></td>';
+	        html +='<td></td>';
+	        html += '</tr>';
+	        
+	        $('#search_result_scrapping table').append(html);
 	  }
 	  
 	  function hndlr(response) {
@@ -326,6 +369,56 @@ if(countries_json.length)
                 availableTags: industries
             });                
 </script>
+<link href="<?php echo asset_css('chosen.css');?>" rel="stylesheet" type="text/css" />
+<script src="<?php echo asset_js('chosen.jquery.js');?>"></script>
+<script>
+$("#website").chosen({});
+$('.chzn-results li').css('width','525');
+$('#website_chzn').css('width','420');
+$('.chzn-drop ul').css('width','419');
+$('.chzn-choices').css('border-radius','5px').css('border','#d6d6d6 1px solid').css('padding','2px 5px');
+
+</script>
+<script>
+  $(function() {
+    var progressbar = $( "#progressbar" ),
+      progressLabel = $( ".progress-label" );
+ 
+    progressbar.progressbar({
+      value: false,
+      change: function() {
+        progressLabel.text( progressbar.progressbar( "value" ) + "%" );
+      },
+      complete: function() {
+        progressLabel.text( "Complete!" );
+      }
+    });
+ 
+    function progress() {
+      var val = progressbar.progressbar( "value" ) || 0;
+ 
+      progressbar.progressbar( "value", val + 1 );
+ 
+      if ( val < 99 ) {
+        setTimeout( progress, 100 );
+      }
+    }
+ 
+    setTimeout( progress, 3000 );
+  });
+  </script>
+  <style>
+  .ui-progressbar {
+    position: relative;
+  }
+  .progress-label {
+    position: absolute;
+    left: 50%;
+    top: 4px;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #fff;
+  }
+  </style>
 <!--</div>-->
 
 <!-- detail Colum -->
