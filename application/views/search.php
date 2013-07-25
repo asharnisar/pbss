@@ -118,307 +118,140 @@
 </div>
 <!--<div class="detail-colum">-->
 <div class="about-profile-people">
-        <h1>Results</h1>
-        <!--<div id="progressbar"><div class="progress-label">Loading...</div></div>-->
-		<div id="search_result" style="display:none;"></div>
-		<div id="search_result_scrapping" style="display:none;">
-		    <table width="100%" cellpadding="5" style="border:#e6e6e6 1px solid" cellspacing="5" border="1">
+
+<div id="tabs">
+   <ul>
+     <li><a href="#tab-1"><b>Searches</b></a></li>
+     <li><a href="#tab-2"><b>Results</b></a></li>
+   </ul>
+   <div id="tab-1">
+     <span id="search_result_scrapping">
+		    <table id="flexgrid" width="100%" cellpadding="0" style="border:#e6e6e6 1px solid" cellspacing="5" border="1">
 		        <tr>
 		            <td align="center" width="25%"><b>Website</b></td>
 		            <td align="center" width="25%"><b>Criteria</b></td>
 		            <td align="center"><b>Start Time</b></td>
 		            <td align="center"><b>End Time</b></td>
-		            <td width="25%" align="center"><b>Progress</b></td>
+		            <td width="25%" align="center"><b>Status</b></td>
 		            <td align="center"><b>Action</b></td>
 		        </tr>
 		    </table>
-		</div>
+		</span>
+   </div>
+   <div id="tab-2">
+     <span id="search_result"></span>
+   </div>
+   
+ </div>
+
+        
 </div>
-<script>
-	function clean(string)
-	{
-		if(string == '[]')
-		{
-			return "";
-		}
-		else
-		{
-			string = string.substring(1);
-			string = string.slice(0,-1);
-			return string;
-		}
-	}
 
-      function get_results()
-	  {
-	    var website = $("#website option:selected").val();
-	    var website_type = website.charAt(0);    
-	    website = website.slice(1);
-	    
-	    var state = $("[name='state']").val();
-	    var country = $("[name='country']").val();
-        var city = $("[name='city']").val();
-	    var zip = $("[name='zip']").val();
-	    var industry = $("[name='industry']").val();
-	    var keyword = $('#keyword').val();
-	    var num = $("#total option:selected").val();
-	    
-	    
-	    if(parseInt(website_type) == 1)
-	    {
-	        $("#search_result_scrapping").hide();
-	        $("#search_result").html('');
-	        $("#search_result").show();
-		    
-		    var search = country+" "+state+" "+city+" "+zip+" "+industry+" "+keyword;
-		    search = search.replace(/"/g, "");
-		    var url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyA4iMwtbw8lVVClDBge1hKLqSC8j_sI-rU&cx=008099485685892913783:gukgeeg2dvq&q="+search+"&gl=usarhan&googlehost=google.com&siteSearch="+website+"&siteSearchFilter=i&num="+num; 
-		    console.log(url);
-		    return;
-		    $.ajax({
-		      url: url,
-		      context: document.body
-		    }).done(function(result) {
-		      
-		      hndlr(result);
-		
-		    });
-	    }
-	    else
-	    {
-	        // scrapping code goes here
-	        $('#search_result').hide('');
-	        $('#search_result_scrapping').show('');
-	        
-	        var criteria = "country="+country+"&state="+state+"&city="+city+"&zip="+zip+"&market segment="+industry+"&search term="+keyword;
-		    criteria = criteria.replace(/"/g, "");
-	        
-	        add_tr(website,criteria);
-	        
-	    }
-	  
-	  }
-	  
-	  function add_tr(website,criteria)
-	  {
-	        var time = new Date();
-	        var current_time = time.getHours() + ":"+ time.getMinutes() + ":"+ time.getSeconds();
-	        var html = "";
-	        html += '<tr>';
-	        html +='<td>'+website+'</td>';
-	        html +='<td>'+criteria+'</td>';
-	        html +='<td>'+current_time+'</td>';
-	        html +='<td></td>';
-	        html +='<td></td>';
-	        html +='<td></td>';
-	        html += '</tr>';
-	        
-	        $('#search_result_scrapping table').append(html);
-	  }
-	  
-	  function hndlr(response) {
-	  document.getElementById("search_result").innerHTML = '';
-      for (var i = 0; i < response.items.length; i++) {
-        var item = response.items[i];
-		
-		var html = "";
-		html += "<div class='review-inner'>";
-        html += '<h2><a href="'+item.formattedUrl+'">'+item.htmlTitle+'</a></h2>';
-		html += '<p>';
-		html += '<strong>'+item.htmlFormattedUrl+'</strong><br>';
-		html += item.htmlSnippet;
-		html += '</p>';
-		html += '</div>';
-		
-		// in production code, item.htmlTitle should have the HTML entities escaped.
-        document.getElementById("search_result").innerHTML += html;
-		
-      }
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+}
+#tabs {
+	font-size: 90%;
+	/*margin: 20px 0;*/
+}
+#tabs ul {
+	float: left;
+	background: #fff;
+	width: 500px;
+	padding-top: 4px;
+}
+#tabs li {
+	margin-left: 8px;
+	list-style: none;
+}
+* html #tabs li {
+	display: inline;
+}
+#tabs li, #tabs li a {
+	float: left;
+	font-size:15px;
+}
+#tabs ul li.active {
+	/*border-top:2px #FFFF66 solid;*/
+	background: #e6e6e6;
 	
-	/*var pagination = '<div class="pagination"><ul><li><</li><li>1</li><li>2</li><li class="selected">3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>></li></ul></div>';
-	$(pagination).insertAfter("#search_result");*/
-    
-	}
-    </script>
-
+}
+#tabs ul li.active a {
+	color: #333333;
+}
+#tabs div {
+	/*background: #e6e6e6;*/
+	border: 2px solid #e6e6e6;
+	clear: both;
+	padding: 5px;
+	/*min-height: 200px;*/
+}
+#tabs div h3 {
+	margin-bottom: 12px;
+}
+#tabs div p {
+	line-height: 150%;
+}
+#tabs ul li a {
+	text-decoration: none;
+	padding: 8px;
+	color: #000;
+	font-weight: bold;
+}
+.thumbs {
+	float:left;
+	border:#000 solid 1px;
+	margin-bottom:20px;
+	margin-right:20px;
+}
+-->
+</style>
 <script>
-var sampleTags = ['c++', 'java', 'php', 'coldfusion', 'javascript', 'asp', 'ruby', 'python', 'c', 'scala', 'groovy', 'haskell', 'perl', 'erlang', 'apl', 'cobol', 'go', 'lua'];
+	$(document).ready(function(){
+        //$('#tabs div').hide();
+        $('#tab-1').hide();
+        $('#tab-2').hide();
+        $('#tabs div:first').show();
+        $('#tabs ul li:first').addClass('active');
+         
+        $('#tabs ul li a').click(function(){
+        $('#tabs ul li').removeClass('active');
+        $(this).parent().addClass('active');
+        var currentTab = $(this).attr('href');
+        //$('#tabs div').hide();
+        $('#tab-1').hide();
+        $('#tab-2').hide();
+        $(currentTab).show();
+        return false;
+        });
+    });
+
+
 
 var countries = [];
 var industries = [];
 
 var countries_json = $.parseJSON('<?php echo $countries;?>');
 var industries_json = $.parseJSON('<?php echo $industries;?>');
-if(industries_json.length)
-{
-    for(var i=0;i<industries_json.length;i++)
-    {
-        industries.push(industries_json[i].name);
-    }
-}
 
-if(countries_json.length)
-{
-    for(var i=0;i<countries_json.length;i++)
-    {
-        countries.push(countries_json[i].country_name);
-    }
-}
+industries = fill_industries(industries_json);
 
-  $('#country').tagit({
-                allowSpaces: true,
-                allowDuplicates: false,
-                availableTags: countries
-            });                
+countries = fill_countries(countries_json);
+
+show_countries_tags(countries);
   
-  
-  $('#state').tagit({
-                allowSpaces: true,
-                allowDuplicates: false,
-                tagSource: function(request, response) 
-                {
-                    var selected_countries = $("#country").tagit("assignedTags");
-                    if(selected_countries.length > 0)
-                    {
-                        $.ajax({
-                            type: "POST",
-                            url:        "<?php echo base_url();?>ajax/get_states",
-                            dataType:   "json",
-                            data: {countries:selected_countries},
-                            success:    function(data) 
-                            {
-                                //return data;
-                                response( $.map( data, function( item ) {
-                                return {
-                                    label: item.state_name,
-                                    value: item.state_name
-                                    
-                                }
-                            }));
-                            }
-
-                        });
-                    }
-                }
-            });     
+show_states_tags("<?php echo base_url();?>ajax/get_states");
              
-  
+show_cities_tags("<?php echo base_url();?>ajax/get_cities");  
         
-  $('#city').tagit({
-                allowSpaces: true,
-                allowDuplicates: false,
-                tagSource: function(request, response) 
-                {
-                    var selected_states = $("#state").tagit("assignedTags");
-                    if(selected_states.length > 0)
-                    {
-                        $.ajax({
-                            type: "POST",
-                            url:        "<?php echo base_url();?>ajax/get_cities",
-                            dataType:   "json",
-                            data: {states:selected_states},
-                            success:    function(data) 
-                            {
-                                //return data;
-                                response( $.map( data, function( item ) {
-                                return {
-                                    label: item.city_name,
-                                    value: item.city_name
-                                    
-                                }
-                            }));
-                            }
-
-                        });
-                    }
-                }
-            });      
+show_zip_tags("<?php echo base_url();?>ajax/get_zips");        
                   
-  $('#zip').tagit({
-                allowSpaces: true,
-                allowDuplicates: false,
-                tagSource: function(request, response) 
-                {
-                    var selected_cities = $("#city").tagit("assignedTags");
-                    if(selected_cities.length > 0)
-                    {
-                        $.ajax({
-                            type: "POST",
-                            url:        "<?php echo base_url();?>ajax/get_zips",
-                            dataType:   "json",
-                            data: {cities:selected_cities},
-                            success:    function(data) 
-                            {
-                                //return data;
-                                response( $.map( data, function( item ) {
-                                return {
-                                    label: item.zip,
-                                    value: item.zip
-                                    
-                                }
-                            }));
-                            }
-
-                        });
-                    }
-
-                }
-            });                
+show_industries_tags(industries);                  
   
-  $('#industry').tagit({
-                availableTags: industries
-            });                
+show_websites_tags();  
 </script>
-<link href="<?php echo asset_css('chosen.css');?>" rel="stylesheet" type="text/css" />
-<script src="<?php echo asset_js('chosen.jquery.js');?>"></script>
-<script>
-$("#website").chosen({});
-$('.chzn-results li').css('width','525');
-$('#website_chzn').css('width','420');
-$('.chzn-drop ul').css('width','419');
-$('.chzn-choices').css('border-radius','5px').css('border','#d6d6d6 1px solid').css('padding','2px 5px');
-
-</script>
-<script>
-  $(function() {
-    var progressbar = $( "#progressbar" ),
-      progressLabel = $( ".progress-label" );
- 
-    progressbar.progressbar({
-      value: false,
-      change: function() {
-        progressLabel.text( progressbar.progressbar( "value" ) + "%" );
-      },
-      complete: function() {
-        progressLabel.text( "Complete!" );
-      }
-    });
- 
-    function progress() {
-      var val = progressbar.progressbar( "value" ) || 0;
- 
-      progressbar.progressbar( "value", val + 1 );
- 
-      if ( val < 99 ) {
-        setTimeout( progress, 100 );
-      }
-    }
- 
-    setTimeout( progress, 3000 );
-  });
-  </script>
-  <style>
-  .ui-progressbar {
-    position: relative;
-  }
-  .progress-label {
-    position: absolute;
-    left: 50%;
-    top: 4px;
-    font-weight: bold;
-    text-shadow: 1px 1px 0 #fff;
-  }
-  </style>
 <!--</div>-->
 
 <!-- detail Colum -->
