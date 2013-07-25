@@ -116,6 +116,7 @@
 </div>
 
 </div>
+
 <!--<div class="detail-colum">-->
 <div class="about-profile-people">
 
@@ -124,22 +125,62 @@
      <li><a href="#tab-1"><b>Searches</b></a></li>
      <li><a href="#tab-2"><b>Results</b></a></li>
    </ul>
-   <div id="tab-1">
-     <span id="search_result_scrapping">
-		    <table id="flexgrid" width="100%" cellpadding="0" style="border:#e6e6e6 1px solid" cellspacing="5" border="1">
-		        <tr>
-		            <td align="center" width="25%"><b>Website</b></td>
-		            <td align="center" width="25%"><b>Criteria</b></td>
-		            <td align="center"><b>Start Time</b></td>
-		            <td align="center"><b>End Time</b></td>
-		            <td width="25%" align="center"><b>Status</b></td>
-		            <td align="center"><b>Action</b></td>
-		        </tr>
-		    </table>
-		</span>
+   <div id="tab-1" style="border: 2px solid #e6e6e6;clear: both; padding-bottom:20px;">
+     <div id="search_result_scrapping">
+		    <table cellpadding="0" cellspacing="0" border="0" class="display" id="gridme" width="100%">
+	            <thead>
+		            <tr>
+		                <th align="center" width="25%"><b>Website</b></th>
+		                <th align="center" width="25%"><b>Criteria</b></th>
+		                <th align="center"><b>Start Time</b></th>
+		                <th align="center"><b>End Time</b></th>
+		                <th width="25%" align="center"><b>Status</b></th>
+		                <th align="center"><b>Action</b></th>
+		            </tr>
+	            </thead>
+	            <tbody>
+		            <!--<tr class="gradeC odd">
+			            <td>Trident</td>
+			            <td>Internet
+				             Explorer 4.0</td>
+			            <td>Win 95+</td>
+			            <td class="center"> 4</td>
+			            <td class="center">X</td>
+			            <td class="center">X</td>
+		            </tr>
+		            <tr class="gradeC even">
+			            <td>Trident</td>
+			            <td>Internet
+				             Explorer 5.0</td>
+			            <td>Win 95+</td>
+			            <td class="center">5</td>
+			            <td class="center">C</td>
+			            <td class="center">X</td>
+		            </tr>
+		            <tr class="gradeC odd">
+			            <td>Trident</td>
+			            <td>Internet
+				             Explorer 5.5</td>
+			            <td>Win 95+</td>
+			            <td class="center">5.5</td>
+			            <td class="center">A</td>
+			            <td class="center">X</td>
+		            </tr>
+		            <tr class="gradeC even">
+			            <td>Trident</td>
+			            <td>Internet
+				             Explorer 6</td>
+			            <td>Win 98+</td>
+			            <td class="center">6</td>
+			            <td class="center">A</td>
+			            <td class="center">X</td>
+		            </tr>-->
+                </tbody>
+            </table>
+		</div>
    </div>
-   <div id="tab-2">
-     <span id="search_result"></span>
+   <div id="tab-2"  style="border: 2px solid #e6e6e6;clear: both;">
+     <div id="search_result"></div>
    </div>
    
  </div>
@@ -183,8 +224,8 @@
 }
 #tabs div {
 	/*background: #e6e6e6;*/
-	border: 2px solid #e6e6e6;
-	clear: both;
+	/*border: 2px solid #e6e6e6;
+	clear: both;*/
 	padding: 5px;
 	/*min-height: 200px;*/
 }
@@ -226,8 +267,12 @@
         $(currentTab).show();
         return false;
         });
+        
+        
+        
+        $("#gridme").dataTable();
+        
     });
-
 
 
 var countries = [];

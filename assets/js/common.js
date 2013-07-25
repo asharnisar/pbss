@@ -180,7 +180,9 @@ function add_tr(website,criteria)
     criteria = criteria.replace("&",'\r\n');console.log(criteria);
     var time = new Date();
     var current_time = time.getHours() + ":"+ time.getMinutes() + ":"+ time.getSeconds();
-    var html = "";
+    
+    $('#gridme').dataTable().fnAddData( [website,criteria,current_time,"","Working","" ] );
+    /*var html = "";
     html += '<tr>';
     html +='<td>'+website+'</td>';
     html +='<td>'+criteria+'</td>';
@@ -190,7 +192,7 @@ function add_tr(website,criteria)
     html +='<td></td>';
     html += '</tr>';
     
-    $('#search_result_scrapping table').append(html);
+    $('#search_result_scrapping table').append(html);*/
 }
 	  
 function hndlr(response) 
@@ -260,7 +262,7 @@ function get_results()
           url: url,
           context: document.body
         }).done(function(result) {
-          
+          show_result_tab();            
           hndlr(result);
 
         });
@@ -268,14 +270,32 @@ function get_results()
     else
     {
         // scrapping code goes here
-        //$('#search_result').hide('');
-        //$('#search_result_scrapping').show('');
-        
         var criteria = "country="+country+"&state="+state+"&city="+city+"&zip="+zip+"&market segment="+industry+"&search term="+keyword;
         criteria = criteria.replace(/"/g, "");
-        
+        show_search_tab();
         add_tr(website,criteria);
         
     }
 
+}
+
+
+function show_result_tab()
+{
+    $('#tabs ul li').removeClass('active');
+        $("#tabs ul li:last-child").addClass('active');
+        
+        $('#tab-1').hide();
+        $("#tab-2").show();
+        return false;
+}
+
+function show_search_tab()
+{
+    $('#tabs ul li').removeClass('active');
+        $("#tabs ul li:first-child").addClass('active');
+        
+        $('#tab-1').show();
+        $("#tab-2").hide();
+        return false;
 }

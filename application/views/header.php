@@ -4,18 +4,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Untitled Document</title>
 <link href="<?php echo asset_css('style1.css');?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo asset_css('demo_table.css');?>" rel="stylesheet" type="text/css" />
 <link href="<?php echo asset_css('jquery.tagit.css');?>" rel="stylesheet" type="text/css" />
 <link href="<?php echo asset_css('tagit.ui-zendesk.css');?>" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="<?php echo asset_css('flick-jquery-ui.css');?>">
 <link href="<?php echo asset_css('chosen.css');?>" rel="stylesheet" type="text/css" />
-<link href="<?php echo asset_css('flexigrid.pack.css');?>" rel="stylesheet" type="text/css" />
+
 <script src="<?php echo asset_js('jquery-1.9.1.js');?>"></script>
 <script src="<?php echo asset_js('1.10.3-jquery-ui.js');?>"></script>
 <script src="<?php echo asset_js('chosen.jquery.js');?>"></script>
 <!--<script src="<?php echo admin_asset_js('jquery-1.6.4.min.js');?>" type="text/javascript"></script>
 <script src="<?php echo asset_js('jquery-ui-1.8.6.custom.min.js');?>" type="text/javascript"></script>-->
 <script src="<?php echo asset_js('tag-it.js');?>" type="text/javascript"></script>
-<script src="<?php echo asset_js('flexigrid.pack.js');?>" type="text/javascript"></script>
+<script src="<?php echo asset_js('jquery.dataTables.js');?>" type="text/javascript"></script>
 <script src="<?php echo asset_js('common.js');?>" type="text/javascript"></script>
 </head>
 
