@@ -73,6 +73,43 @@ class Ajax extends CI_Controller {
 	{
 		
 	}
+	
+	public function scrap()
+	{
+		$jar_path = 'C:\wamp\www\tugboat\assets\harvester\webharvest_all_2.jar';
+		$config_path = 'C:\wamp\www\tugboat\assets\harvester\tradekey2.xml';
+		$dir_path = 'C:\wamp\www\tugboat\assets\harvester';
+		//exec('java -jar "C:\Users\webharvest_all_2.jar"',$output,$result);
+		$exec = 'java -jar '.$jar_path.' [-h] config="'.$config_path.'" workdir="'.$dir_path.'"';
+		//debug($exec,1);
+		exec($exec,$output,$result);
+		//$result = 0;
+		if($result == 0)
+		{
+			//echo json_encode(array("text"=>"Successfully scrap"));
+			$filename = 'C:\\wamp\\www\\tugboat\\assets\\harvester\\data\\tradekey\\aaagricultural.xml';
+			if(file_exists($filename))
+			{
+				$temp = array();
+				$xml = simplexml_load_file($filename);
+				if(count($xml->companies))
+				{
+					$array = xml_to_array($xml,'companies');
+					foreach($array as $arr)
+						$temp[] = $arr['info'];
+				}
+				echo json_encode($temp);
+			}
+			else
+			{
+				debug('file not exists',1);
+			}
+		}
+		else
+		{debug($result);
+			echo json_encode(array("text"=>"Some error"));
+		}
+	}
 }
 
 /* End of file welcome.php */

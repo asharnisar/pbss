@@ -142,3 +142,16 @@ function dateDiff($time1, $time2, $precision = 6) {
     // Return string with times
     //return implode(", ", $times);
   }
+  
+function xml_to_array($deXml,$main_heading = '') {
+    //$deXml = simplexml_load_string($xml);
+    $deJson = json_encode($deXml);
+    $xml_array = json_decode($deJson,TRUE);
+    if (! empty($main_heading)) {
+        $returned = $xml_array[$main_heading];
+        return $returned;
+    } else {
+        return $xml_array;
+    }
+
+	}

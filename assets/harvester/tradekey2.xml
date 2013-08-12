@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config charset="ISO-8859-1">
+
+    <var-def name="startUrl">http://www.tradekey.com/profile_list/cid/1217/Agricultural-Greenhouses.htm</var-def>
+    
+    <file action="write" path="data/tradekey/agricultural.xml" charset="UTF-8">
+        <template>
+            <![CDATA[ <tradekey date="${sys.datetime("dd.MM.yyyy")}"> ]]>
+        </template>
+        
+        <loop item="articleUrl" index="i" maxloops="5">
+            <!-- collects URLs of all articles from the front page -->
+            <list>
+                <xpath expression="//div[@class='description_block']/div/table/tbody/tr/td/a/@href">
+                    <html-to-xml>
+                        <http url="${startUrl}"/>
+                    </html-to-xml>
+                </xpath>
+            </list>
+            
+            <!-- downloads each article and extract data from it -->
+            <body>
+                <xquery>
+                    <xq-param name="doc">
+                        <html-to-xml>
+                            <http url="${articleUrl}"/>
+                        </html-to-xml>
+                    </xq-param>
+                    <xq-expression><![CDATA[
+                        declare variable $doc as node() external;
+                        
+                        let $contact_info := data($doc//div[text()='Contact Information']/following-sibling::div[1])
+                        
+                        
+                            return
+                                <companies>
+                                    <info>{data($contact_info)}</info>
+                                </companies>
+                    ]]></xq-expression>
+                </xquery>
+            </body>
+        </loop>
+        
+        <![CDATA[ </tradekey> ]]>
+    </file>
+    
+</config>

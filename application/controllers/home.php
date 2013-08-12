@@ -32,6 +32,69 @@ class Home extends CI_Controller {
 		$this->config->load("my_config");
 	} 
 	
+	public function test_exec()
+	{
+		/*$filename = 'tradekey2.xml';
+		$xmlfile  = "C:\\Users\\beto\\Documents\\xml\\" . $filename; //Adding extra slashes
+		$result   = '';
+
+		if(file_exists($xmlfile)){
+		  $xmlRaw = file_get_contents($xmlfile);
+
+		  $this->load->library('simplexml');
+		  $xmlData = $this->simplexml->xml_parse($xmlRaw);
+		  
+		  //foreach loop
+		}else{
+		  $result .= 'File ' . $xmlfile . ' was not found';
+		}
+		return $result;*/
+		$filename = "C:\\wamp\\www\\harvester\\data\\tradekey\\agricultural.xml";
+		$xml   = simplexml_load_file($filename);
+$array = $this->xml_to_array($xml,'companies');
+
+		foreach($array as $arr)
+			debug($arr['info']);
+		/*if(file_exists($filename))
+		{
+		$xml = simplexml_load_file($filename);
+		if(count($xml->companies))
+		{
+			$temp = array();
+			for($i=0;$i<count($xml->companies);$i++)
+			{
+				$temp[]['info'] = $xml->companies[$i]->info;
+				
+			}
+			
+		}
+		
+		echo json_encode($temp);
+		//$xmlRaw = file_get_contents($filename);
+		//$this->load->library('simplexml');
+		  //$xmlData = $this->simplexml->xml_parse($xmlRaw);
+		
+		}
+		else
+		{
+			debug('file not exists',1);
+		}*/
+		die;
+		$jar_path = "C:\wamp\www\harvester\webharvest_all_2.jar";
+		$config_path = 'C:\wamp\www\harvester\test.xml';
+		$dir_path = "C:\wamp\www\harvester";
+		//exec('java -jar "C:\Users\webharvest_all_2.jar"',$output,$result);
+		$exec = 'java -jar '.$jar_path.' [-h] config="'.$config_path.'" workdir="'.$dir_path.'"';
+		//debug($exec,1);
+		exec($exec,$output,$result);
+		echo $result;
+		//print_r($output);
+		//exec("dir",$output,$result);
+		//debug($result);
+		//debug($output,1);
+		
+	}
+	
 	public function index()
 	{
 		//$this->load->view('welcome_message');

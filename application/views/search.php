@@ -111,6 +111,7 @@
 <li class="signup-form_li">&nbsp;</li>
 <li class="signup-form_li">
 	<input name="button" onclick="get_results();" type="button" class="signup-form-btn" value="Get Results">
+	<span id="loading" style="padding-left:30px; display:none;"><img src="<?php echo asset_img('loading.gif');?>" /></span>
 </li>
 </ul>
 </div>

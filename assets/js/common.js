@@ -177,7 +177,7 @@ function show_industries_tags(industries)
 
 function add_tr(website,criteria)
 {
-    criteria = criteria.replace("&",'\r\n');console.log(criteria);
+    criteria = criteria.replace("&",'\r\n');
     var time = new Date();
     var current_time = time.getHours() + ":"+ time.getMinutes() + ":"+ time.getSeconds();
     
@@ -213,9 +213,31 @@ function hndlr(response)
     // in production code, item.htmlTitle should have the HTML entities escaped.
     document.getElementById("search_result").innerHTML += html;
 
+	}
+
 }
 
-}	  
+function hndlr_scrap(response) 
+{
+    document.getElementById("search_result").innerHTML = '';
+    for (var i = 0; i < response.length; i++) 
+	{
+		var item = response[i];
+
+		var html = "";
+		html += "<div class='review-inner'>";
+		//html += '<h2><a href="'+item.formattedUrl+'">'+item.htmlTitle+'</a></h2>';
+		html += '<p>';
+		//html += '<strong>'+item.htmlFormattedUrl+'</strong><br>';
+		html += item;
+		html += '</p>';
+		html += '</div>';
+
+		// in production code, item.htmlTitle should have the HTML entities escaped.
+		document.getElementById("search_result").innerHTML += html;
+
+	}	  
+}
 
 function clean(string)
 {
@@ -255,7 +277,7 @@ function get_results()
         var search = country+" "+state+" "+city+" "+zip+" "+industry+" "+keyword;
         search = search.replace(/"/g, "");
         var url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyA4iMwtbw8lVVClDBge1hKLqSC8j_sI-rU&cx=008099485685892913783:gukgeeg2dvq&q="+search+"&gl=usarhan&googlehost=google.com&siteSearch="+website+"&siteSearchFilter=i&num="+num; 
-        //console.log(url);
+        
         //return;
         
         $.ajax({
@@ -275,6 +297,29 @@ function get_results()
         show_search_tab();
         add_tr(website,criteria);
         
+		$('#loading').show();
+		$.ajax({
+          url: 'ajax/scrap',
+		  dataType: "json",
+          context: document.body
+        }).done(function(result) {
+          $('#loading').hide();
+		  if(typeof result === 'object')
+		  {
+			  show_result_tab();
+			  hndlr_scrap(result);
+		  }	
+		
+        });
+		
+		/*$.ajax({
+          url: url,
+          context: document.body
+        }).done(function(result) {
+          show_result_tab();            
+          hndlr(result);
+
+        });*/
     }
 
 }
