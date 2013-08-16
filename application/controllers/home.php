@@ -34,6 +34,9 @@ class Home extends CI_Controller {
 	
 	public function test_exec()
 	{
+		exec("whoami",$result,$val);
+		debug($result);
+		debug($val,1);
 		/*$filename = 'tradekey2.xml';
 		$xmlfile  = "C:\\Users\\beto\\Documents\\xml\\" . $filename; //Adding extra slashes
 		$result   = '';

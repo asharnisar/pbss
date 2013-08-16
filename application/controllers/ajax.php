@@ -76,18 +76,21 @@ class Ajax extends CI_Controller {
 	
 	public function scrap()
 	{
+		$keyword = $this->input->post('keyword');
 		$jar_path = 'C:\wamp\www\tugboat\assets\harvester\webharvest_all_2.jar';
-		$config_path = 'C:\wamp\www\tugboat\assets\harvester\tradekey2.xml';
+		$config_path = 'C:\wamp\www\tugboat\assets\harvester\yelp.xml';
 		$dir_path = 'C:\wamp\www\tugboat\assets\harvester';
 		//exec('java -jar "C:\Users\webharvest_all_2.jar"',$output,$result);
-		$exec = 'java -jar '.$jar_path.' [-h] config="'.$config_path.'" workdir="'.$dir_path.'"';
+		$exec = 'java -jar '.$jar_path.' [-h] config="'.$config_path.'" workdir="'.$dir_path.'" [#startUrl="http://www.yelp.com/search?find_desc='.$keyword.'"]';
 		//debug($exec,1);
 		exec($exec,$output,$result);
+		//debug($output);
+		//debug($result,1);
 		//$result = 0;
 		if($result == 0)
 		{
 			//echo json_encode(array("text"=>"Successfully scrap"));
-			$filename = 'C:\\wamp\\www\\tugboat\\assets\\harvester\\data\\tradekey\\aaagricultural.xml';
+			$filename = 'C:\\wamp\\www\\tugboat\\assets\\harvester\\data\\yelp\\test.xml';
 			if(file_exists($filename))
 			{
 				$temp = array();

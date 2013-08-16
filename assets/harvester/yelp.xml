@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config charset="ISO-8859-1">
+
+    <var-def name="startUrl">http://www.yelp.com/search?find_desc=dinner</var-def>
+    
+    <file action="write" path="data/yelp/test.xml" charset="UTF-8">
+        <template>
+            <![CDATA[ <yelp date="${sys.datetime("dd.MM.yyyy")}"> ]]>
+        </template>
+        
+
+            
+            <!-- downloads each article and extract data from it -->
+            
+                <xquery>
+                    <xq-param name="doc">
+                        <html-to-xml>
+                            <http url="${startUrl}"/>
+                        </html-to-xml>
+                    </xq-param>
+                    <xq-expression><![CDATA[
+                        declare variable $doc as node() external;
+                        
+                        let $contact_info := data($doc//*[@class="secondary-attributes"])
+                        
+                        for $x in $contact_info
+                            return
+                                <companies>
+                                    <info>{data($x)}</info>
+                                </companies>
+                    ]]></xq-expression>
+                </xquery>
+            
+        
+        <![CDATA[ </yelp> ]]>
+    </file>
+    
+</config>

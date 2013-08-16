@@ -301,6 +301,7 @@ function get_results()
 		$.ajax({
           url: 'ajax/scrap',
 		  dataType: "json",
+		  data:{keyword:keyword},
           context: document.body
         }).done(function(result) {
           $('#loading').hide();
