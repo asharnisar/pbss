@@ -2,7 +2,7 @@
 
 <config charset="ISO-8859-1">
 
-    <var-def name="startUrl">http://www.yelp.com/search?find_desc=dinner</var-def>
+    
     
     <file action="write" path="data/yelp/test.xml" charset="UTF-8">
         <template>
@@ -22,12 +22,14 @@
                     <xq-expression><![CDATA[
                         declare variable $doc as node() external;
                         
-                        let $contact_info := data($doc//*[@class="secondary-attributes"])
-                        
+                        let $contact_info := $doc//*[@class="ylist ylist-bordered search-results"]/li
+
+							
                         for $x in $contact_info
                             return
                                 <companies>
-                                    <info>{data($x)}</info>
+                                	<name>{data($x/div/div[1]/div[2]/h3/span/a/text())}</name>
+                                    <info>{data($x/div/div[2])}</info>
                                 </companies>
                     ]]></xq-expression>
                 </xquery>

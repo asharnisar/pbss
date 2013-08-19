@@ -81,7 +81,8 @@ class Ajax extends CI_Controller {
 		$config_path = 'C:\wamp\www\tugboat\assets\harvester\yelp.xml';
 		$dir_path = 'C:\wamp\www\tugboat\assets\harvester';
 		//exec('java -jar "C:\Users\webharvest_all_2.jar"',$output,$result);
-		$exec = 'java -jar '.$jar_path.' [-h] config="'.$config_path.'" workdir="'.$dir_path.'" [#startUrl="http://www.yelp.com/search?find_desc='.$keyword.'"]';
+		$exec = 'java -jar '.$jar_path.' [-h] config="'.$config_path.'" workdir="'.$dir_path.'" #startUrl="http://www.yelp.com/search?find_desc='.$keyword.'"';
+		
 		//debug($exec,1);
 		exec($exec,$output,$result);
 		//debug($output);
@@ -99,7 +100,7 @@ class Ajax extends CI_Controller {
 				{
 					$array = xml_to_array($xml,'companies');
 					foreach($array as $arr)
-						$temp[] = $arr['info'];
+						$temp[] = $arr;
 				}
 				echo json_encode($temp);
 			}

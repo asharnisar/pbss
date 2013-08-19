@@ -229,7 +229,9 @@ function hndlr_scrap(response)
 		//html += '<h2><a href="'+item.formattedUrl+'">'+item.htmlTitle+'</a></h2>';
 		html += '<p>';
 		//html += '<strong>'+item.htmlFormattedUrl+'</strong><br>';
-		html += item;
+		html += item.name;
+		html += '<br>';
+		html += item.info;
 		html += '</p>';
 		html += '</div>';
 
@@ -301,6 +303,7 @@ function get_results()
 		$.ajax({
           url: 'ajax/scrap',
 		  dataType: "json",
+		  type: "POST",
 		  data:{keyword:keyword},
           context: document.body
         }).done(function(result) {
