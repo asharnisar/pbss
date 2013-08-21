@@ -77,11 +77,31 @@ class Ajax extends CI_Controller {
 	public function scrap()
 	{
 		$keyword = $this->input->post('keyword');
+		$website = $this->input->post('website');
+		
 		$jar_path = 'C:\wamp\www\tugboat\assets\harvester\webharvest_all_2.jar';
-		$config_path = 'C:\wamp\www\tugboat\assets\harvester\yelp.xml';
+		
 		$dir_path = 'C:\wamp\www\tugboat\assets\harvester';
-		//exec('java -jar "C:\Users\webharvest_all_2.jar"',$output,$result);
-		$exec = 'java -jar '.$jar_path.' [-h] config="'.$config_path.'" workdir="'.$dir_path.'" #startUrl="http://www.yelp.com/search?find_desc='.$keyword.'"';
+		if($website == "http://www.yelp.com")
+		{
+			$filename = 'C:\\wamp\\www\\tugboat\\assets\\harvester\\data\\yelp\\test.xml';
+			$config_path = 'C:\wamp\www\tugboat\assets\harvester\yelp.xml';
+			$exec = 'java -jar '.$jar_path.' [-h] config="'.$config_path.'" workdir="'.$dir_path.'" #startUrl="http://www.yelp.com/search?find_desc='.$keyword.'"';
+		}
+		elseif($website == "http://appext20.dos.ny.gov/corp_public/CORPSEARCH.SELECT_ENTITY")
+		{
+			$filename = 'C:\\wamp\\www\\tugboat\\assets\\harvester\\data\\gov\\test.xml';
+			$config_path = 'C:\wamp\www\tugboat\assets\harvester\gov.xml';
+			$exec = 'java -jar '.$jar_path.' [-h] config="'.$config_path.'" workdir="'.$dir_path.'" ';
+			$exec .= '#keyword="'.$keyword.'"';	
+		}
+		else
+		{
+			$filename = 'C:\\wamp\\www\\tugboat\\assets\\harvester\\data\\yelp\\test.xml';
+			$config_path = 'C:\wamp\www\tugboat\assets\harvester\yelp.xml';
+			$exec = 'java -jar '.$jar_path.' [-h] config="'.$config_path.'" workdir="'.$dir_path.'" #startUrl="http://www.yelp.com/search?find_desc='.$keyword.'"';
+		}
+				
 		
 		//debug($exec,1);
 		exec($exec,$output,$result);
@@ -91,7 +111,7 @@ class Ajax extends CI_Controller {
 		if($result == 0)
 		{
 			//echo json_encode(array("text"=>"Successfully scrap"));
-			$filename = 'C:\\wamp\\www\\tugboat\\assets\\harvester\\data\\yelp\\test.xml';
+			
 			if(file_exists($filename))
 			{
 				$temp = array();

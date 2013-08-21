@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config charset="ISO-8859-1">
+
+    <var-def name="startUrl">http://appext20.dos.ny.gov/corp_public/CORPSEARCH.SELECT_ENTITY</var-def>
+    <var-def name="beginUrl">http://appext20.dos.ny.gov/corp_public/</var-def>
+    
+	
+    <file action="write" path="data/gov/test.xml" charset="UTF-8">
+        <template>
+            <![CDATA[ <gov date="${sys.datetime("dd.MM.yyyy")}"> ]]>
+        </template>
+        
+
+        <loop item="companyUrl" index="i">    
+            <list>
+                <xpath expression="//table/tbody/tr/td/a/@href">
+                    <html-to-xml>
+                        <http method="post" url="${startUrl}">
+						<http-param name="p_entity_name"><template>${keyword}</template></http-param>
+						<http-param name="p_name_type">A</http-param>
+						<http-param name="p_search_type">BEGINS</http-param>
+						</http>
+                    </html-to-xml>
+                </xpath>
+                
+            </list>
+            
+            
+            <!-- downloads each article and extract data from it -->
+            <body>
+                <xquery>
+                    <xq-param name="doc">
+                        <html-to-xml>
+							<http url="${sys.fullUrl(beginUrl, companyUrl)}"/>
+						</html-to-xml>
+                    </xq-param>
+                    <xq-expression><![CDATA[
+                        declare variable $doc as node() external;
+                        
+                        let $contact_info := $doc//table[@id="tblAddr"]/tbody/tr[2]
+
+							
+                        for $x in $contact_info
+                            return
+                                <companies>
+                                	<info>{data($x)}</info>
+                                    
+                                </companies>
+                    ]]></xq-expression>
+                </xquery>
+            </body>
+        </loop>
+        <![CDATA[ </gov> ]]>
+    </file>
+    
+</config>
