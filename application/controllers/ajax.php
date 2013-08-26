@@ -95,6 +95,13 @@ class Ajax extends CI_Controller {
 			$exec = 'java -jar '.$jar_path.' [-h] config="'.$config_path.'" workdir="'.$dir_path.'" ';
 			$exec .= '#keyword="'.$keyword.'"';	
 		}
+		elseif($website == "http://www.finra.org/AboutFINRA/MemberFirms/")
+		{
+			$filename = 'C:\\wamp\\www\\tugboat\\assets\\harvester\\data\\finra\\finra.xml';
+			$config_path = 'C:\wamp\www\tugboat\assets\harvester\finra.xml';
+			$exec = 'java -jar '.$jar_path.' [-h] config="'.$config_path.'" workdir="'.$dir_path.'" ';
+			//$exec .= '#keyword="'.$keyword.'"';
+		}
 		else
 		{
 			$filename = 'C:\\wamp\\www\\tugboat\\assets\\harvester\\data\\yelp\\test.xml';

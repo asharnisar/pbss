@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config charset="ISO-8859-1">
+
+    
+    <var-def name="startUrl">http://www.finra.org/AboutFINRA/MemberFirms/ListOfMembers/P012908</var-def>
+    <var-def name="mainSite">http://www.finra.org</var-def>
+	
+    <file action="write" path="data/finra/finra.xml" charset="UTF-8">
+        <template>
+            <![CDATA[ <finra date="${sys.datetime("dd.MM.yyyy")}"> ]]>
+        </template>
+        
+        <loop item="articleUrl" index="i">
+            <!-- collects URLs of all articles from the front page -->
+            <list>
+                <xpath expression="//*[@class='FNRW_Alphabetical_DL-result']/@href">
+                    <html-to-xml>
+                        <http url="${startUrl}"/>
+                    </html-to-xml>
+                </xpath>
+            </list>
+            
+            <!-- downloads each article and extract data from it -->
+            <body>
+                <xquery>
+                    <xq-param name="doc">
+                        <html-to-xml>
+                            <http url="${sys.fullUrl(mainSite, articleUrl)}"/>
+                        </html-to-xml>
+                    </xq-param>
+                    <xq-expression><![CDATA[
+                        declare variable $doc as node() external;
+                        
+                        let $name := $doc//*[@id="col2cont"]/div[2]/table/tbody/tr/td[3]/p
+						
+						                        
+                        for $x at $index in $name
+                        
+                            return
+                                <companies>
+                                    <info>{data($x)}</info>
+									
+                                </companies>
+                    ]]></xq-expression>
+                </xquery>
+            </body>
+        </loop>
+        
+        <![CDATA[ </finra> ]]>
+    </file>
+    
+</config>

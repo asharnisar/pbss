@@ -225,19 +225,25 @@ function hndlr_scrap(response)
 		var item = response[i];
 
 		var html = "";
-		html += "<div class='review-inner'>";
-		//html += '<h2><a href="'+item.formattedUrl+'">'+item.htmlTitle+'</a></h2>';
-		html += '<p>';
-		//html += '<strong>'+item.htmlFormattedUrl+'</strong><br>';
-		if(item.name)
+		if(item.info != "\u00a0" && item.info != "")
 		{
-		html += item.name;
-		html += '<br>';
-		}
-		html += item.info;
-		html += '</p>';
+			html += "<div class='review-inner'>";
+		//html += '<h2><a href="'+item.formattedUrl+'">'+item.htmlTitle+'</a></h2>';
+		
+			html += '<p>';
+			//html += '<strong>'+item.htmlFormattedUrl+'</strong><br>';
+			if(item.name)
+			{
+			html += item.name;
+			html += '<br>';
+			}
+		
+			html += item.info;
+					
+			html += '</p>';
+		
 		html += '</div>';
-
+		}
 		// in production code, item.htmlTitle should have the HTML entities escaped.
 		document.getElementById("search_result").innerHTML += html;
 
