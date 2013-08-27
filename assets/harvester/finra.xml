@@ -32,14 +32,14 @@
                     <xq-expression><![CDATA[
                         declare variable $doc as node() external;
                         
-                        let $name := $doc//*[@id="col2cont"]/div[2]/table/tbody/tr/td[3]/p
+                        let $name := $doc//*[@id="col2cont"]/div[2]/table/tbody/tr/td[3]
 						
 						                        
-                        for $x at $index in $name
+                        
                         
                             return
                                 <companies>
-                                    <info>{data($x)}</info>
+                                    <info>{data($name)}</info>
 									
                                 </companies>
                     ]]></xq-expression>

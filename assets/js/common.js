@@ -237,8 +237,10 @@ function hndlr_scrap(response)
 			html += item.name;
 			html += '<br>';
 			}
-		
-			html += item.info;
+			
+			new_item = item.info.replace(/(\r\n|\n|\r|\u00a0)/gm, "<br>");
+			
+			html += new_item;
 					
 			html += '</p>';
 		
