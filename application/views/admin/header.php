@@ -65,7 +65,7 @@ foreach($output->css_files as $file): ?>
         <div class="grid_12 header-repeat">
             <div id="branding">
                 <div class="floatleft">
-                    <img height="50" width="214" src="<?php echo asset_img("logo.png");?>" alt="Logo" /></div>
+                    <!--<img height="50" width="214" src="<?php echo asset_img("logo.png");?>" alt="Logo" />--></div>
                 <div class="floatright">
                     <div class="floatleft">
                         <img src="<?php echo admin_asset_img('img-profile.jpg');?>" alt="Profile Pic" /></div>

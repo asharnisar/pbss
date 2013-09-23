@@ -54,7 +54,7 @@
 <li>
   <div class="social">Follow us <a href="#"><img src="<?php echo asset_img("facebook.jpg");?>" alt="facebook" border="0" /></a> <a href="#"><img src="<?php echo asset_img("twitter.jpg");?>" alt="twitter" border="0" /></a></div>
 </li>
-<li>Tugboat Copyright © 2013.</li>
+<li>Copyright © 2013.</li>
 </ul>
 </div>
 </div>
