@@ -39,6 +39,6 @@
 </div>
 <div class="logo-bar">
 <div class="wrapper">
-<div class="logo"><!--<a href="#"><img src="<?php echo asset_img("logo.png");?>" alt="Tugboat" border="0" /></a>--></div>
+<div class="logo"><a href="#"><img src="<?php echo asset_img("logo.png");?>" alt="Tugboat" border="0" /></a></div>
 </div>
 </div>
